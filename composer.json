@@ -1,0 +1,30 @@
+{
+    "name": "sun/epayAlfa",
+    "description": "Payment service AlfaBank",
+    "authors": [
+        {
+            "name": "Kudryavtsev Sergey",
+            "email": "invaderman@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Sun\\EpayAlfa\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sun\\EpayAlfa\\EpayAlfaServiceProvider"
+            ],
+            "aliases": {
+                "EpayAlfa": "Sun\\EpayAlfa\\Facade"
+            }
+        }
+    }
+}
