@@ -2,19 +2,32 @@
 
 namespace Sun\EpayAlfa;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
-use Sun\EpayAlfa\Requests\DoRegisterRequest;
+use Sun\EpayAlfa\Models\DepositModel;
+use Sun\EpayAlfa\Models\LastOrdersForMerchantsModel;
+use Sun\EpayAlfa\Models\OrderStatusExtendedModel;
+use Sun\EpayAlfa\Models\OrderStatusModel;
+use Sun\EpayAlfa\Models\PaymentOrderBindingModel;
+use Sun\EpayAlfa\Models\RefundModel;
+use Sun\EpayAlfa\Models\RegisterModel;
+use Sun\EpayAlfa\Models\ReverseModel;
+use Sun\EpayAlfa\Requests\DepositRequest;
+use Sun\EpayAlfa\Requests\GetOrderStatusExtendedRequest;
 use Sun\EpayAlfa\Requests\GetOrderStatusRequest;
-use Sun\EpayAlfa\Requests\PaymentOrderBindingDoRequest;
+use Sun\EpayAlfa\Requests\LastOrdersForMerchantsRequest;
+use Sun\EpayAlfa\Requests\PaymentOrderBindingRequest;
 use Sun\EpayAlfa\Requests\RefundRequest;
+use Sun\EpayAlfa\Requests\RegisterRequest;
+use Sun\EpayAlfa\Requests\ReverseRequest;
 
 class EpayAlfa
 {
-    private ?string $provider;
     private EpayAlfaHttpClient $httpClient;
     private EpayAlfaConfig $config;
+    private ?string $provider = null;
 
-    private function __construct(EpayAlfaHttpClient $httpClient, EpayAlfaConfig $config)
+    public function __construct(EpayAlfaHttpClient $httpClient, EpayAlfaConfig $config)
     {
         $this->httpClient = $httpClient;
         $this->config = $config;
@@ -36,49 +49,63 @@ class EpayAlfa
         return $this->setProvider($provider);
     }
 
-    public function registerDo(DoRegisterRequest $request): array
+    public function registerDo(RegisterRequest $request): RegisterModel
     {
-        return $this->sendRequest('register.do', $request->validated());
+        $response = $this->sendRequest('register.do', $request);
+        return RegisterModel::createFromArray($response);
     }
 
-    public function getOrderStatus(GetOrderStatusRequest $request): array
+    public function getOrderStatus(GetOrderStatusRequest $request): OrderStatusModel
     {
-        return $this->sendRequest('getOrderStatus.do', $request->validated());
+        $response = $this->sendRequest('getOrderStatus.do', $request);
+        return OrderStatusModel::createFromArray($response);
     }
 
-    public function getOrderStatusExtended(GetOrderStatusRequest $request): array
+    public function getOrderStatusExtended(GetOrderStatusExtendedRequest $request): OrderStatusExtendedModel
     {
-        return $this->sendRequest('getOrderStatusExtended.do', $request->validated());
+        $response = $this->sendRequest('getOrderStatusExtended.do', $request);
+        return OrderStatusExtendedModel::createFromArray($response);
     }
 
-    public function registerPreAuth(DoRegisterRequest $request): array
+    public function registerPreAuth(RegisterRequest $request): RegisterModel
     {
-        return $this->sendRequest('registerPreAuth.do', $request->validated());
+        $response = $this->sendRequest('registerPreAuth.do', $request);
+        return RegisterModel::createFromArray($response);
     }
 
-    public function refund(RefundRequest $request): array
+    public function refund(RefundRequest $request): RefundModel
     {
-        return $this->sendRequest('refund.do', $request->validated());
+        $response = $this->sendRequest('refund.do', $request);
+        return RefundModel::createFromArray($response);
     }
 
-    public function reverse(GetOrderStatusRequest $request): array
+    public function reverse(ReverseRequest $request): ReverseModel
     {
-        return $this->sendRequest('reverse.do', $request->validated());
+        $response = $this->sendRequest('reverse.do', $request);
+        return ReverseModel::createFromArray($response);
     }
 
-    public function paymentOrderBindingDo(PaymentOrderBindingDoRequest $request): array
+    public function paymentOrderBindingDo(PaymentOrderBindingRequest $request): PaymentOrderBindingModel
     {
-        return $this->sendRequest('paymentOrderBinding.do', $request->validated());
+        $response = $this->sendRequest('paymentOrderBinding.do', $request);
+        return PaymentOrderBindingModel::createFromArray($response);
     }
 
-    public function depositDo(RefundRequest $request): array
+    public function depositDo(DepositRequest $request): DepositModel
     {
-        return $this->sendRequest('deposit.do', $request->validated());
+        $response = $this->sendRequest('deposit.do', $request);
+        return DepositModel::createFromArray($response);
     }
 
-    private function sendRequest(string $method, array $data): array
+    public function getLastOrdersForMerchants(LastOrdersForMerchantsRequest $request): LastOrdersForMerchantsModel
+    {
+        $response = $this->sendRequest('getLastOrdersForMerchants.do', $request);
+        return LastOrdersForMerchantsModel::createFromArray($response);
+    }
+
+    private function sendRequest(string $method, Arrayable $data): array
     {
         $alfaProvider = $this->config->getAlfaProvider($this->provider);
-        return $this->httpClient->request($alfaProvider, $method, $data);
+        return $this->httpClient->request($alfaProvider, $method, $data->toArray());
     }
 }

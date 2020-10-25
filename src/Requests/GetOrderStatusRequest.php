@@ -2,12 +2,6 @@
 
 namespace Sun\EpayAlfa\Requests;
 
-class GetOrderStatusRequest extends AbstractAlfaRequest
+class GetOrderStatusRequest extends AbstractOrderRequest
 {
-    public function rules(): array
-    {
-        return [
-            'orderId' => 'required',
-        ];
-    }
 }

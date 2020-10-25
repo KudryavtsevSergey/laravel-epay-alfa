@@ -2,6 +2,7 @@
 
 namespace Sun\EpayAlfa;
 
+use Http;
 use Sun\EpayAlfa\Config\AlfaProvider;
 
 class EpayAlfaHttpClient
@@ -14,17 +15,10 @@ class EpayAlfaHttpClient
         ]);
         $url = sprintf('%s/%s', $alfaProvider->getGateway(), $method);
 
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => http_build_query($data),
+        $response = Http::post($url, [
+            $data,
         ]);
-        $response = curl_exec($curl);
 
-        $response = json_decode($response, true);
-        curl_close($curl);
-        return $response;
+        return $response->json();
     }
 }

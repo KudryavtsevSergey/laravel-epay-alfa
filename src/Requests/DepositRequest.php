@@ -2,7 +2,7 @@
 
 namespace Sun\EpayAlfa\Requests;
 
-class RefundRequest extends AbstractRequest
+class DepositRequest extends AbstractRequest
 {
     private string $orderId;
     private int $amount;

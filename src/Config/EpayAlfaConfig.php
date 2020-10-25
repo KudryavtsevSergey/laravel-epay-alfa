@@ -10,7 +10,11 @@ class EpayAlfaConfig
         $providers = $this->getProviders();
         $providerData = $providers[$provider] ?? [];
 
-        return $this->createAlfaProvider($providerData);
+        return new AlfaProvider(
+            $providerData['username'] ?? null,
+            $providerData['password'] ?? null,
+            $providerData['gateway'] ?? null
+        );
     }
 
     private function getDefaultProvider(): string
@@ -20,15 +24,11 @@ class EpayAlfaConfig
 
     private function getProviders(): array
     {
-        return config('epayalfa.providers');
+        return config('epayalfa.providers', []);
     }
 
-    private function createAlfaProvider(array $provider): AlfaProvider
+    public function getProviderKeys(): array
     {
-        $username = $provider['username'] ?? null;
-        $password = $provider['password'] ?? null;
-        $getawayUrl = $provider['getaway_url'] ?? null;
-
-        return new AlfaProvider($username, $password, $getawayUrl);
+        return array_keys($this->getProviders());
     }
 }

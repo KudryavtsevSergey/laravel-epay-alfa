@@ -1,0 +1,27 @@
+<?php
+
+namespace Sun\EpayAlfa\Enum;
+
+class OrderStatusEnum extends AbstractEnum
+{
+    const ORDER_REGISTERED_BUT_NOT_PAID = 0;
+    const PRE_AUTHORIZED_AMOUNT_IS_FROZEN = 1;
+    const COMPLETED_FULL_AUTHORIZATION_OF_THE_ORDER_AMOUNT = 2;
+    const AUTHORIZATION_CANCELED = 3;
+    const A_REFUND_OPERATION_WAS_PERFORMED_ON_THE_TRANSACTION = 4;
+    const AUTHORIZATION_INITIATED_THROUGH_THE_ISSUING_BANK_ACS = 5;
+    const AUTHORIZATION_REJECTED = 6;
+
+    public static function getValues(): array
+    {
+        return [
+            self::ORDER_REGISTERED_BUT_NOT_PAID,
+            self::PRE_AUTHORIZED_AMOUNT_IS_FROZEN,
+            self::COMPLETED_FULL_AUTHORIZATION_OF_THE_ORDER_AMOUNT,
+            self::AUTHORIZATION_CANCELED,
+            self::A_REFUND_OPERATION_WAS_PERFORMED_ON_THE_TRANSACTION,
+            self::AUTHORIZATION_INITIATED_THROUGH_THE_ISSUING_BANK_ACS,
+            self::AUTHORIZATION_REJECTED,
+        ];
+    }
+}
