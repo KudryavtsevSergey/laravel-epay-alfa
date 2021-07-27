@@ -4,47 +4,48 @@ namespace Sun\EpayAlfa\Config;
 
 class AlfaProvider
 {
-    private ?string $username;
-    private ?string $password;
-    private ?string $gateway;
+    private string $username;
+    private string $password;
+    private string $gateway;
+    private string $notificationType;
+    private ?string $secret;
 
-    public function __construct(?string $username, ?string $password, ?string $gateway)
-    {
+    public function __construct(
+        string $username,
+        string $password,
+        string $gateway,
+        string $notificationType,
+        ?string $secret
+    ) {
         $this->username = $username;
         $this->password = $password;
         $this->gateway = $gateway;
+        $this->notificationType = $notificationType;
+        $this->secret = $secret;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function setUsername(?string $username): self
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    public function getGateway(): ?string
+    public function getGateway(): string
     {
         return $this->gateway;
     }
 
-    public function setGateway(?string $gateway): self
+    public function getNotificationType(): string
     {
-        $this->gateway = $gateway;
-        return $this;
+        return $this->notificationType;
+    }
+
+    public function getSecret(): ?string
+    {
+        return $this->secret;
     }
 }

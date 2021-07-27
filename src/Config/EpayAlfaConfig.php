@@ -2,19 +2,34 @@
 
 namespace Sun\EpayAlfa\Config;
 
+use Sun\EpayAlfa\Exceptions\Internal\FieldCannotBeNullException;
+use Sun\EpayAlfa\Exceptions\Internal\ProviderNotFoundException;
+
 class EpayAlfaConfig
 {
     public function getAlfaProvider(?string $provider = null): AlfaProvider
     {
-        $provider = $provider ?? $this->getDefaultProvider();
-        $providers = $this->getProviders();
-        $providerData = $providers[$provider] ?? [];
+        $providerData = $this->getProviderData($provider);
+        if (!is_array($providerData)) {
+            throw new ProviderNotFoundException($provider);
+        }
 
         return new AlfaProvider(
-            $providerData['username'] ?? null,
-            $providerData['password'] ?? null,
-            $providerData['gateway'] ?? null
+            $this->extractFieldFromConfig($providerData, $provider, 'username'),
+            $this->extractFieldFromConfig($providerData, $provider, 'password'),
+            $this->extractFieldFromConfig($providerData, $provider, 'gateway'),
+            $this->extractFieldFromConfig($providerData, $provider, 'notification_type'),
+            $providerData['secret'] ?? null
         );
+    }
+
+    private function extractFieldFromConfig(array $providerData, string $provider, string $field)
+    {
+        $value = $providerData[$field] ?? null;
+        if (is_null($value)) {
+            throw new FieldCannotBeNullException($provider, $field);
+        }
+        return $value;
     }
 
     private function getDefaultProvider(): string
@@ -25,6 +40,13 @@ class EpayAlfaConfig
     private function getProviders(): array
     {
         return config('epayalfa.providers', []);
+    }
+
+    private function getProviderData(?string $provider = null): ?array
+    {
+        $provider = $provider ?? $this->getDefaultProvider();
+        $providers = $this->getProviders();
+        return $providers[$provider] ?? null;
     }
 
     public function getProviderKeys(): array

@@ -3,6 +3,7 @@
 namespace Sun\EpayAlfa;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Route;
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
 use Sun\EpayAlfa\Models\DepositModel;
 use Sun\EpayAlfa\Models\LastOrdersForMerchantsModel;
@@ -107,5 +108,16 @@ class EpayAlfa
     {
         $alfaProvider = $this->config->getAlfaProvider($this->provider);
         return $this->httpClient->request($alfaProvider, $method, $data->toArray());
+    }
+
+    public function routes(array $options = [])
+    {
+        $defaultOptions = ['prefix' => 'epayalfa', 'namespace' => '\Sun\EpayAlfa\Http\Controllers'];
+
+        $options = array_merge($defaultOptions, $options);
+
+        Route::group($options, function ($router) {
+            (new RouteRegistrar($router))->routes();
+        });
     }
 }

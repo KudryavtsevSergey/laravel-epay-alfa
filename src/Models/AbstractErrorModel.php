@@ -36,7 +36,7 @@ abstract class AbstractErrorModel extends AbstractModel
         return $model;
     }
 
-    private function fillError(array $data)
+    public function fillError(array $data)
     {
         $this->setErrorCode($data['errorCode'] ?? null);
         $this->setErrorMessage($data['errorMessage'] ?? null);
