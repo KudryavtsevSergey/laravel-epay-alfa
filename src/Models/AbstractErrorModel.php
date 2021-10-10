@@ -29,14 +29,18 @@ abstract class AbstractErrorModel extends AbstractModel
         return $this;
     }
 
-    public static function createFromArray(array $data): self
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function createFromArray(array $data)
     {
         $model = parent::createFromArray($data);
         $model->fillError($data);
         return $model;
     }
 
-    public function fillError(array $data)
+    public function fillError(array $data): void
     {
         $this->setErrorCode($data['errorCode'] ?? null);
         $this->setErrorMessage($data['errorMessage'] ?? null);

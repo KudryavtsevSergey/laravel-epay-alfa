@@ -4,7 +4,11 @@ namespace Sun\EpayAlfa\Models;
 
 abstract class AbstractModel
 {
-    public static function createFromArray(array $data): self
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function createFromArray(array $data)
     {
         $model = new static();
         $model->fillFromData($data);

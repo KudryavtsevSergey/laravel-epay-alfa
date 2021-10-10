@@ -8,6 +8,6 @@ class FieldCannotBeNullException extends RuntimeException
 {
     public function __construct(string $provider, string $field)
     {
-        parent::__construct(sprintf('The field %s is required in provider %s.', $field, $provider));
+        parent::__construct(sprintf('The field %s is required for provider %s.', $field, $provider));
     }
 }
