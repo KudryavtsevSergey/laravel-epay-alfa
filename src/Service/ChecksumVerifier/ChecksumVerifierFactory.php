@@ -7,15 +7,17 @@ use Sun\EpayAlfa\Exceptions\Internal\UnknownNotificationTypeException;
 
 class ChecksumVerifierFactory
 {
-    public static function createByNotificationType(string $notificationType): ChecksumVerifier
+    public static function createByNotificationType(string $notificationType, ?string $secret): ChecksumVerifier
     {
         switch ($notificationType) {
             case NotificationTypeEnum::NO_CHECKSUM:
                 return new NoChecksumVerifier();
             case NotificationTypeEnum::SYMMETRIC_CHECKSUM:
-                return new SymmetricChecksumVerifier();
+                // TODO:
+                return new SymmetricChecksumVerifier('', $secret);
             case NotificationTypeEnum::ASYMMETRIC_CHECKSUM:
-                return new AsymmetricChecksumVerifier();
+                // TODO:
+                return new AsymmetricChecksumVerifier('', $secret);
             default:
                 throw new UnknownNotificationTypeException($notificationType);
         }

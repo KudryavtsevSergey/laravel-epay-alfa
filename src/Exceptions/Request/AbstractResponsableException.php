@@ -2,15 +2,12 @@
 
 namespace Sun\EpayAlfa\Exceptions\Request;
 
-use Exception;
-use Illuminate\Contracts\Support\Responsable;
-use Sun\BelAssist\ResponseGenerators\FailureResponseGenerator;
-use Sun\BelAssist\Responses\BelAssistResponse;
+use Sun\EpayAlfa\Exceptions\InternalError;
 use Sun\EpayAlfa\Responses\EpayAlfaResponse;
 
-abstract class AbstractResponsableException extends Exception implements Responsable
+abstract class AbstractResponsableException extends InternalError implements ResponsableThrowable
 {
-    public function toResponse($request)
+    public function toResponse($request): EpayAlfaResponse
     {
         return new EpayAlfaResponse();
     }
