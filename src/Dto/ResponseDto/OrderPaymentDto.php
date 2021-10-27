@@ -2,7 +2,9 @@
 
 namespace Sun\EpayAlfa\Dto\ResponseDto;
 
-class OrderPaymentDto implements ResponseDtoInterface
+use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
+
+class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
 {
     private int $amount;
     private string $mdOrder;

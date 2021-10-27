@@ -4,21 +4,21 @@ namespace Sun\EpayAlfa\Dto\ResponseDto;
 
 abstract class AbstractErrorResponseDto implements ResponseDtoInterface
 {
-    private int $errorCode;
-    private string $errorMessage;
+    private ?int $errorCode;
+    private ?string $errorMessage;
 
-    public function __construct(int $errorCode, string $errorMessage)
+    public function __construct(?int $errorCode = null, ?string $errorMessage = null)
     {
         $this->errorCode = $errorCode;
         $this->errorMessage = $errorMessage;
     }
 
-    public function getErrorCode(): int
+    public function getErrorCode(): ?int
     {
         return $this->errorCode;
     }
 
-    public function getErrorMessage(): string
+    public function getErrorMessage(): ?string
     {
         return $this->errorMessage;
     }

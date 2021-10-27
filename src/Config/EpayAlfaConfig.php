@@ -18,8 +18,7 @@ class EpayAlfaConfig
             $this->extractFieldFromConfig($providerData, $provider, 'username'),
             $this->extractFieldFromConfig($providerData, $provider, 'password'),
             $this->extractFieldFromConfig($providerData, $provider, 'gateway'),
-            $this->extractFieldFromConfig($providerData, $provider, 'notification_type'),
-            $providerData['secret'] ?? null
+            $this->extractFieldFromConfig($providerData, $provider, 'notification_type')
         );
     }
 
@@ -42,15 +41,15 @@ class EpayAlfaConfig
         return config('epayalfa.providers', []);
     }
 
+    public function getSecret(): ?string
+    {
+        return config('epayalfa.secret');
+    }
+
     private function getProviderData(?string $provider = null): ?array
     {
         $provider = $provider ?? $this->getDefaultProvider();
         $providers = $this->getProviders();
         return $providers[$provider] ?? null;
-    }
-
-    public function getProviderKeys(): array
-    {
-        return array_keys($this->getProviders());
     }
 }

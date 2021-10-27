@@ -12,13 +12,17 @@ abstract class AbstractOrderRequestDto extends AbstractRequestDto
     /**
      * @param string|null $orderNumber Number of the order in the system
      * @param string|null $orderId Order number in the payment system
+     * @param string|null $language
      */
-    public function __construct(?string $orderNumber, ?string $orderId  = null)
-    {
+    public function __construct(
+        ?string $orderNumber,
+        ?string $orderId  = null,
+        ?string $language = null
+    ) {
         if (empty($orderNumber) && empty($orderId)) {
             throw new OneOfRequiredException('orderNumber', 'orderId');
         }
-
+        parent::__construct($language);
         $this->orderNumber = $orderNumber;
         $this->orderId = $orderId;
     }
@@ -28,20 +32,8 @@ abstract class AbstractOrderRequestDto extends AbstractRequestDto
         return $this->orderNumber;
     }
 
-    public function setOrderNumber(?string $orderNumber): self
-    {
-        $this->orderNumber = $orderNumber;
-        return $this;
-    }
-
     public function getOrderId(): ?string
     {
         return $this->orderId;
-    }
-
-    public function setOrderId(?string $orderId): self
-    {
-        $this->orderId = $orderId;
-        return $this;
     }
 }

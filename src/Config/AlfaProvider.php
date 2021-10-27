@@ -8,20 +8,17 @@ class AlfaProvider
     private string $password;
     private string $gateway;
     private string $notificationType;
-    private ?string $secret;
 
     public function __construct(
         string $username,
         string $password,
         string $gateway,
-        string $notificationType,
-        ?string $secret
+        string $notificationType
     ) {
         $this->username = $username;
         $this->password = $password;
         $this->gateway = $gateway;
         $this->notificationType = $notificationType;
-        $this->secret = $secret;
     }
 
     public function getUsername(): string
@@ -42,10 +39,5 @@ class AlfaProvider
     public function getNotificationType(): string
     {
         return $this->notificationType;
-    }
-
-    public function getSecret(): ?string
-    {
-        return $this->secret;
     }
 }

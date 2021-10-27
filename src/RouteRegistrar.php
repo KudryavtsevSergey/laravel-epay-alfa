@@ -3,9 +3,6 @@
 namespace Sun\EpayAlfa;
 
 use Illuminate\Contracts\Routing\Registrar;
-use Illuminate\Routing\Router;
-use Sun\EpayAlfa\Http\Middleware\ChecksumVerifier;
-use Sun\EpayAlfa\Http\Middleware\SafeWrapper;
 
 class RouteRegistrar
 {
@@ -16,13 +13,11 @@ class RouteRegistrar
         $this->router = $router;
     }
 
-    public function routes()
+    public function routes(): void
     {
-        $this->router->group(['middleware' => [SafeWrapper::class, ChecksumVerifier::class]], function (Router $router) {
-            $router->post('{provider}/callback', [
-                'uses' => 'EpayAlfaController@callback',
-                'as' => 'epayalfa.callback',
-            ]);
-        });
+        $this->router->post('{provider}/callback', [
+            'uses' => 'EpayAlfaController@callback',
+            'as' => 'epayalfa.callback',
+        ]);
     }
 }

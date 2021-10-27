@@ -2,67 +2,50 @@
 
 namespace Sun\EpayAlfa\Dto\RequestDto;
 
-use DateTime;
+use DateTimeInterface;
+use Sun\EpayAlfa\Enum\TransactionStateEnum;
 
 class LastOrdersForMerchantsRequestDto extends AbstractRequestDto
 {
-    private int $page = 0;
-    private int $size = 200;
-    private DateTime $from;
-    private DateTime $to;
+    private DateTimeInterface $from;
+    private DateTimeInterface $to;
     private array $transactionStates;
-    private string $merchants = '';
-    private bool $searchByCreatedDate = false;
+    private int $page;
+    private int $size;
+    private string $merchants;
+    private bool $searchByCreatedDate;
 
-    public function __construct(DateTime $from, DateTime $to, array $transactionStates)
-    {
+    public function __construct(
+        DateTimeInterface $from,
+        DateTimeInterface $to,
+        array $transactionStates,
+        int $page = 0,
+        int $size = 200,
+        string $merchants = '',
+        bool $searchByCreatedDate = false,
+        ?string $language = null
+    ) {
+        array_map(function (string $transactionState): void {
+            TransactionStateEnum::checkAllowedValue($transactionState);
+        }, $transactionStates);
+        parent::__construct($language);
         $this->from = $from;
         $this->to = $to;
         $this->transactionStates = $transactionStates;
-    }
-
-    public function getPage(): int
-    {
-        return $this->page;
-    }
-
-    public function setPage(int $page): self
-    {
         $this->page = $page;
-        return $this;
-    }
-
-    public function getSize(): int
-    {
-        return $this->size;
-    }
-
-    public function setSize(int $size): self
-    {
         $this->size = $size;
-        return $this;
+        $this->merchants = $merchants;
+        $this->searchByCreatedDate = $searchByCreatedDate;
     }
 
-    public function getFrom(): DateTime
+    public function getFrom(): DateTimeInterface
     {
         return $this->from;
     }
 
-    public function setFrom(DateTime $from): self
-    {
-        $this->from = $from;
-        return $this;
-    }
-
-    public function getTo(): DateTime
+    public function getTo(): DateTimeInterface
     {
         return $this->to;
-    }
-
-    public function setTo(DateTime $to): self
-    {
-        $this->to = $to;
-        return $this;
     }
 
     public function getTransactionStates(): array
@@ -70,10 +53,14 @@ class LastOrdersForMerchantsRequestDto extends AbstractRequestDto
         return $this->transactionStates;
     }
 
-    public function setTransactionStates(array $transactionStates): self
+    public function getPage(): int
     {
-        $this->transactionStates = $transactionStates;
-        return $this;
+        return $this->page;
+    }
+
+    public function getSize(): int
+    {
+        return $this->size;
     }
 
     public function getMerchants(): string
@@ -81,30 +68,8 @@ class LastOrdersForMerchantsRequestDto extends AbstractRequestDto
         return $this->merchants;
     }
 
-    public function setMerchants(string $merchants): self
-    {
-        $this->merchants = $merchants;
-        return $this;
-    }
-
     public function isSearchByCreatedDate(): bool
     {
         return $this->searchByCreatedDate;
-    }
-
-    public function setSearchByCreatedDate(bool $searchByCreatedDate): self
-    {
-        $this->searchByCreatedDate = $searchByCreatedDate;
-        return $this;
-    }
-
-    public function toArray()
-    {
-        return [
-            'transactionStates' => implode(',', $this->transactionStates),
-            'merchants' => $this->merchants,
-            'page' => $this->page,
-            'searchByCreatedDate' => $this->searchByCreatedDate,
-        ];
     }
 }

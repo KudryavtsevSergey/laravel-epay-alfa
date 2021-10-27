@@ -2,10 +2,10 @@
 
 namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
-class NoChecksumVerifier extends AbstractChecksumVerifier
+class NoChecksumVerifier implements ChecksumVerifier
 {
-    protected function calculateCheckSum(): ?string
+    public function verify(?string $checksum = null): bool
     {
-        return null;
+        return $checksum === null;
     }
 }

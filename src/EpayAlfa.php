@@ -11,6 +11,8 @@ use Sun\EpayAlfa\Service\AlfaService;
 
 class EpayAlfa
 {
+    public static ?string $keyPath = null;
+
     private EpayAlfaConfig $config;
     private ?string $provider = null;
 
@@ -39,6 +41,30 @@ class EpayAlfa
     {
         $alfaProvider = $this->config->getAlfaProvider($this->provider);
         return new AlfaService(new AlfaHttpClientService(new ArrayObjectMapper(), $alfaProvider));
+    }
+
+    public static function loadKeysFrom($path): void
+    {
+        static::$keyPath = $path;
+    }
+
+    public static function publicKeyPath(): string
+    {
+        return self::keyPath('alfa-public.key');
+    }
+
+    public static function privateKeyPath(): string
+    {
+        return self::keyPath('alfa-private.key');
+    }
+
+    private static function keyPath($file): string
+    {
+        $file = ltrim($file, '/\\');
+
+        return static::$keyPath
+            ? sprintf('%s%s%s', rtrim(static::$keyPath, '/\\'), DIRECTORY_SEPARATOR, $file)
+            : storage_path($file);
     }
 
     public function routes(array $options = [])

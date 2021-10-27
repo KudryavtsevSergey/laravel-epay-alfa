@@ -4,11 +4,11 @@ namespace Sun\EpayAlfa\Enum;
 
 class OperationEnum extends AbstractEnum
 {
-    const APPROVED = 'approved';
-    const DEPOSITED = 'deposited';
-    const REVERSED = 'reversed';
-    const REFUNDED = 'refunded';
-    const DECLINED_BY_TIMEOUT = 'declinedByTimeout';
+    public const APPROVED = 'approved';
+    public const DEPOSITED = 'deposited';
+    public const REVERSED = 'reversed';
+    public const REFUNDED = 'refunded';
+    public const DECLINED_BY_TIMEOUT = 'declinedByTimeout';
 
     public static function getValues(): array
     {

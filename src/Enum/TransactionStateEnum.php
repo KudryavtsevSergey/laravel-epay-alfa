@@ -4,12 +4,12 @@ namespace Sun\EpayAlfa\Enum;
 
 class TransactionStateEnum extends AbstractEnum
 {
-    const CREATED = 'CREATED';
-    const APPROVED = 'APPROVED';
-    const DEPOSITED = 'DEPOSITED';
-    const DECLINED = 'DECLINED';
-    const REVERSED = 'REVERSED';
-    const REFUNDED = 'REFUNDED';
+    public const CREATED = 'CREATED';
+    public const APPROVED = 'APPROVED';
+    public const DEPOSITED = 'DEPOSITED';
+    public const DECLINED = 'DECLINED';
+    public const REVERSED = 'REVERSED';
+    public const REFUNDED = 'REFUNDED';
 
     public static function getValues(): array
     {

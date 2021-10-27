@@ -8,9 +8,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "phpseclib/phpseclib": "~3.0"
-    },
     "autoload": {
         "files": [
             "src/helpers.php"

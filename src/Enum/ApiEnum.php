@@ -4,15 +4,15 @@ namespace Sun\EpayAlfa\Enum;
 
 class ApiEnum extends AbstractEnum
 {
-    const REGISTER = 'register.do';
-    const GET_ORDER_STATUS = 'getOrderStatus.do';
-    const GET_ORDER_STATUS_EXTENDED = 'getOrderStatusExtended.do';
-    const REGISTER_PRE_AUTH = 'registerPreAuth.do';
-    const REFUND = 'refund.do';
-    const REVERSE = 'reverse.do';
-    const PAYMENT_ORDER_BINDING = 'paymentOrderBinding.do';
-    const DEPOSIT = 'deposit.do';
-    const GET_LAST_ORDERS_FOR_MERCHANTS = 'getLastOrdersForMerchants.do';
+    public const REGISTER = 'register.do';
+    public const GET_ORDER_STATUS = 'getOrderStatus.do';
+    public const GET_ORDER_STATUS_EXTENDED = 'getOrderStatusExtended.do';
+    public const REGISTER_PRE_AUTH = 'registerPreAuth.do';
+    public const REFUND = 'refund.do';
+    public const REVERSE = 'reverse.do';
+    public const PAYMENT_ORDER_BINDING = 'paymentOrderBinding.do';
+    public const DEPOSIT = 'deposit.do';
+    public const GET_LAST_ORDERS_FOR_MERCHANTS = 'getLastOrdersForMerchants.do';
 
     public static function getValues(): array
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
+namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class BankInfoResponseDto
 {

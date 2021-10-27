@@ -1,29 +1,27 @@
 <?php
 
-namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
+namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class PaymentAmountInfoResponseDto
 {
-    private ?int $paymentState;
     private ?int $approvedAmount;
     private ?int $depositedAmount;
     private ?int $refundedAmount;
+    private ?int $paymentState;
+    private ?int $feeAmount;
 
     public function __construct(
-        ?int $paymentState = null,
         ?int $approvedAmount = null,
         ?int $depositedAmount = null,
-        ?int $refundedAmount = null
+        ?int $refundedAmount = null,
+        ?int $paymentState = null,
+        ?int $feeAmount = null
     ) {
-        $this->paymentState = $paymentState;
         $this->approvedAmount = $approvedAmount;
         $this->depositedAmount = $depositedAmount;
         $this->refundedAmount = $refundedAmount;
-    }
-
-    public function getPaymentState(): ?int
-    {
-        return $this->paymentState;
+        $this->paymentState = $paymentState;
+        $this->feeAmount = $feeAmount;
     }
 
     public function getApprovedAmount(): ?int
@@ -39,5 +37,15 @@ class PaymentAmountInfoResponseDto
     public function getRefundedAmount(): ?int
     {
         return $this->refundedAmount;
+    }
+
+    public function getPaymentState(): ?int
+    {
+        return $this->paymentState;
+    }
+
+    public function getFeeAmount(): ?int
+    {
+        return $this->feeAmount;
     }
 }

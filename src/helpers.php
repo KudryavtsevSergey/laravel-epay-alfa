@@ -7,7 +7,7 @@ if (!function_exists('epayAlfa')) {
     function epayAlfa(?string $provider = null): EpayAlfa
     {
         /** @var EpayAlfa $epayAlfa */
-        $epayAlfa = app(Facade::FACADE);
+        $epayAlfa = app(Facade::FACADE_ACCESSOR);
         return $epayAlfa->provider($provider);
     }
 }

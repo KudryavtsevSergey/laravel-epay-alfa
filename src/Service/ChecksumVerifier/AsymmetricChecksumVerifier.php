@@ -2,55 +2,36 @@
 
 namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
-use phpseclib3\Crypt\RSA;
-use phpseclib3\Crypt\RSA\PublicKey;
-use phpseclib3\File\X509;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+use League\OAuth2\Server\CryptKey;
 
-class AsymmetricChecksumVerifier extends AbstractChecksumVerifier
+class AsymmetricChecksumVerifier implements ChecksumVerifier
 {
-    private CallbackRequest $request;
-    private string $secret;
+    private ChecksumInterface $checksum;
+    private Sha256 $signer;
+    private Key $privateKey;
+    private Key $publicKey;
 
-    public function __construct(CallbackRequest $request, string $secret)
+    public function __construct(ChecksumInterface $checksum, CryptKey $privateKey, CryptKey $publicKey)
     {
-        $this->request = $request;
-        $this->secret = $secret;
+        $this->checksum = $checksum;
+        $this->signer = new Sha256();
+        $this->privateKey = InMemory::plainText($privateKey->getKeyContents(), $privateKey->getPassPhrase() ?? '');
+        $this->publicKey = InMemory::plainText($publicKey->getKeyContents(), $publicKey->getPassPhrase() ?? '');
     }
 
-    protected function calculateCheckSum(): ?string
+    public function verify(?string $checksum = null): bool
     {
         $data = sprintf(
             'mdOrder;%s;operation;%s;orderNumber;%s;status;%s;',
-            $this->request->getMdOrder(),
-            $this->request->getOperation(),
-            $this->request->getOrderNumber(),
-            $this->request->getStatus()
+            $this->checksum->getMdOrder(),
+            $this->checksum->getOperation(),
+            $this->checksum->getOrderNumber(),
+            $this->checksum->getStatus()
         );
 
-
-        $x509 = new X509();
-        $certificate = $x509->loadX509($this->secret);
-
-        echo $certificate->verify($hash, base64_decode($signature, true)) ? 'valid' : 'invalid';
-
-
-        $x509 = new X509();
-        $certificate = $x509->loadX509($this->secret);
-
-        echo $x509->validateSignature() ? 'valid' : 'invalid';
-
-        $certFactory = CertificateFactory::getInstance("X.509");
-        $in = new ByteArrayInputStream($certificate);
-        $x509Cert = $certFactory->generateCertificate($in);
-        $sig = Signature::getInstance("SHA512withRSA");
-        $sig->initVerify($x509Cert->getPublicKey());
-        $sig->update($signString->getBytes());
-        $verifies = $sig->verify(Hex::decodeHex($checksum->toLowerCase()->toCharArray()));
-
-
-        ///
-
-
-        return hash_hmac('sha256', $data, $this->secret);
+        return $this->signer->verify($checksum, $data, $this->publicKey);
     }
 }

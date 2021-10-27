@@ -2,17 +2,14 @@
 
 namespace Sun\EpayAlfa\Enum;
 
-use Sun\BelAssist\Exceptions\InvalidValueException;
+use Sun\EpayAlfa\Exceptions\InvalidValueException;
 
 abstract class AbstractEnum
 {
-    /**
-     * @param $value
-     * @throws InvalidValueException
-     */
-    public static function checkAllowedValue($value)
+    public static function checkAllowedValue($value, bool $isAllowNull = false)
     {
-        if (!static::isContainValue($value)) {
+        $isAllow = $isAllowNull && is_null($value);
+        if (!$isAllow && !static::isContainValue($value)) {
             throw new InvalidValueException($value, static::getValues());
         }
     }
