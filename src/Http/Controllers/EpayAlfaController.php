@@ -5,13 +5,13 @@ namespace Sun\EpayAlfa\Http\Controllers;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
-use Sun\EpayAlfa\Dto\ResponseDto\OrderPaymentDto;
 use Sun\EpayAlfa\Events\AlfaPaymentReceivedEvent;
 use Sun\EpayAlfa\Exceptions\Request\AbstractResponsableException;
 use Sun\EpayAlfa\Exceptions\Request\InternalEpayAlfaError;
 use Sun\EpayAlfa\Exceptions\Request\WrongEpayAlfaChecksumException;
 use Sun\EpayAlfa\Mapper\ArrayObjectMapper;
 use Sun\EpayAlfa\Responses\EpayAlfaResponse;
+use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
 use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumVerifierFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -38,8 +38,9 @@ class EpayAlfaController extends AbstractController
     public function callback(string $provider, Request $request): Response
     {
         try {
-            /** @var OrderPaymentDto $payment */
-            $payment = $this->arrayObjectMapper->deserialize($request->all(), OrderPaymentDto::class);
+            $checksumImplementation = $this->config->getChecksumImplementation();
+            /** @var ChecksumInterface $payment */
+            $payment = $this->arrayObjectMapper->deserialize($request->all(), $checksumImplementation);
 
             $this->verifyPayment($provider, $payment);
 
@@ -53,15 +54,12 @@ class EpayAlfaController extends AbstractController
         }
     }
 
-    private function verifyPayment(string $provider, OrderPaymentDto $payment): void
+    private function verifyPayment(string $provider, ChecksumInterface $checksum): void
     {
-        $alfaProvider = $this->config->getAlfaProvider($provider);
-        $checksumVerifier = $this->checksumVerifierFactory->createByNotificationType(
-            $alfaProvider->getNotificationType(),
-            $payment
-        );
-        if (!$checksumVerifier->verify($payment->getChecksum())) {
-            throw new WrongEpayAlfaChecksumException($payment->getChecksum());
+        $notificationType = $this->config->getAlfaProvider($provider)->getNotificationType();
+        $checksumVerifier = $this->checksumVerifierFactory->createByNotificationType($notificationType);
+        if (!$checksumVerifier->verify($checksum)) {
+            throw new WrongEpayAlfaChecksumException($checksum->getChecksum());
         }
     }
 }

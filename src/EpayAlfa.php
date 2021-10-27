@@ -7,40 +7,23 @@ use Illuminate\Support\Facades\Route;
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
 use Sun\EpayAlfa\Mapper\ArrayObjectMapper;
 use Sun\EpayAlfa\Service\AlfaHttpClientService;
-use Sun\EpayAlfa\Service\AlfaService;
+use Sun\EpayAlfa\Service\AlfaApiService;
 
 class EpayAlfa
 {
     public static ?string $keyPath = null;
 
     private EpayAlfaConfig $config;
-    private ?string $provider = null;
 
     public function __construct(EpayAlfaConfig $config)
     {
         $this->config = $config;
     }
 
-    public function getProvider(): ?string
+    public function createApiService(string $provider): AlfaApiService
     {
-        return $this->provider;
-    }
-
-    public function setProvider(?string $provider): self
-    {
-        $this->provider = $provider;
-        return $this;
-    }
-
-    public function provider(?string $provider = null): self
-    {
-        return $this->setProvider($provider);
-    }
-
-    public function createService(): AlfaService
-    {
-        $alfaProvider = $this->config->getAlfaProvider($this->provider);
-        return new AlfaService(new AlfaHttpClientService(new ArrayObjectMapper(), $alfaProvider));
+        $alfaProvider = $this->config->getAlfaProvider($provider);
+        return new AlfaApiService(new AlfaHttpClientService(new ArrayObjectMapper(), $alfaProvider));
     }
 
     public static function loadKeysFrom($path): void

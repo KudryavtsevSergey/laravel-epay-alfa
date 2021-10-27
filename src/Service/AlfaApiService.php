@@ -22,7 +22,7 @@ use Sun\EpayAlfa\Dto\RequestDto\RefundRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\RegisterRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\ReverseRequestDto;
 
-class AlfaService
+class AlfaApiService
 {
     private AlfaHttpClientService $httpClient;
 

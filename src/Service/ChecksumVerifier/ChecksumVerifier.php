@@ -4,5 +4,5 @@ namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
 interface ChecksumVerifier
 {
-    public function verify(?string $checksum = null): bool;
+    public function verify(ChecksumInterface $checksum): bool;
 }

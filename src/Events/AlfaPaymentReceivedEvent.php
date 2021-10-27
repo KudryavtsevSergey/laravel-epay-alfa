@@ -2,14 +2,12 @@
 
 namespace Sun\EpayAlfa\Events;
 
-use Sun\EpayAlfa\Dto\ResponseDto\OrderPaymentDto;
-
 class AlfaPaymentReceivedEvent
 {
     private string $provider;
-    private OrderPaymentDto $orderPaymentDto;
+    private $orderPaymentDto;
 
-    public function __construct(string $provider, OrderPaymentDto $orderPaymentDto)
+    public function __construct(string $provider, $orderPaymentDto)
     {
         $this->provider = $provider;
         $this->orderPaymentDto = $orderPaymentDto;
@@ -20,7 +18,7 @@ class AlfaPaymentReceivedEvent
         return $this->provider;
     }
 
-    public function getOrderPaymentDto(): OrderPaymentDto
+    public function getOrderPaymentDto()
     {
         return $this->orderPaymentDto;
     }

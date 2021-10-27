@@ -2,6 +2,8 @@
 
 namespace Sun\EpayAlfa\Dto\ResponseDto;
 
+use Sun\EpayAlfa\Enum\OperationEnum;
+use Sun\EpayAlfa\Enum\OperationStatusEnum;
 use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
 
 class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
@@ -21,6 +23,8 @@ class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
         string $operation,
         int $status
     ) {
+        OperationEnum::checkAllowedValue($operation);
+        OperationStatusEnum::checkAllowedValue($status);
         $this->amount = $amount;
         $this->mdOrder = $mdOrder;
         $this->orderNumber = $orderNumber;
@@ -57,5 +61,16 @@ class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    public function generatePayload(): string
+    {
+        return sprintf(
+            'mdOrder;%s;operation;%s;orderNumber;%s;status;%s;',
+            $this->mdOrder,
+            $this->operation,
+            $this->orderNumber,
+            $this->status
+        );
     }
 }

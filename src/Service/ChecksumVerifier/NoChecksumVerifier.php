@@ -4,8 +4,8 @@ namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
 class NoChecksumVerifier implements ChecksumVerifier
 {
-    public function verify(?string $checksum = null): bool
+    public function verify(ChecksumInterface $checksum): bool
     {
-        return $checksum === null;
+        return $checksum->getChecksum() === null;
     }
 }

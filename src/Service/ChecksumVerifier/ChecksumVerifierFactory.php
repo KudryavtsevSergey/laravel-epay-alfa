@@ -17,17 +17,15 @@ class ChecksumVerifierFactory
         $this->config = $config;
     }
 
-    public function createByNotificationType(
-        string $notificationType,
-        ChecksumInterface $checksum
-    ): ChecksumVerifier {
+    public function createByNotificationType(string $notificationType): ChecksumVerifier
+    {
         switch ($notificationType) {
             case NotificationTypeEnum::NO_CHECKSUM:
                 return new NoChecksumVerifier();
             case NotificationTypeEnum::SYMMETRIC_CHECKSUM:
-                return new SymmetricChecksumVerifier($checksum, $this->config->getSecret());
+                return new SymmetricChecksumVerifier($this->config->getSecret());
             case NotificationTypeEnum::ASYMMETRIC_CHECKSUM:
-                return new AsymmetricChecksumVerifier($checksum, $this->makePrivateCryptKey(), $this->makePublicCryptKey());
+                return new AsymmetricChecksumVerifier($this->makePrivateCryptKey(), $this->makePublicCryptKey());
             default:
                 throw new InvalidValueException($notificationType, NotificationTypeEnum::getValues());
         }
