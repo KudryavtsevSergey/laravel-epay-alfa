@@ -49,6 +49,6 @@ class AlfaHttpClientService
 
     private function encodeResponse(string $body): array
     {
-        return json_decode(json_encode((array)simplexml_load_string($body)), true);
+        return json_decode($body, true);
     }
 }

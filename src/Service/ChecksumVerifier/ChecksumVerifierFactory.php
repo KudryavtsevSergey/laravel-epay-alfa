@@ -6,7 +6,6 @@ use League\OAuth2\Server\CryptKey;
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
 use Sun\EpayAlfa\Enum\NotificationTypeEnum;
 use Sun\EpayAlfa\EpayAlfa;
-use Sun\EpayAlfa\Exceptions\InvalidValueException;
 
 class ChecksumVerifierFactory
 {
@@ -27,7 +26,7 @@ class ChecksumVerifierFactory
             case NotificationTypeEnum::ASYMMETRIC_CHECKSUM:
                 return new AsymmetricChecksumVerifier($this->makePrivateCryptKey(), $this->makePublicCryptKey());
             default:
-                throw new InvalidValueException($notificationType, NotificationTypeEnum::getValues());
+                throw NotificationTypeEnum::invalidValue($notificationType);
         }
     }
 

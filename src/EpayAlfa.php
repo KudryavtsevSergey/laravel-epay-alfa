@@ -50,7 +50,7 @@ class EpayAlfa
             : storage_path($file);
     }
 
-    public function routes(array $options = [])
+    public function routes(array $options = []): void
     {
         $defaultOptions = ['prefix' => 'epayalfa', 'namespace' => '\Sun\EpayAlfa\Http\Controllers'];
 
