@@ -2,9 +2,9 @@
 
 namespace Sun\EpayAlfa\Exceptions\Internal;
 
-use RuntimeException;
+use Sun\EpayAlfa\Exceptions\InternalError;
 
-class OneOfRequiredException extends RuntimeException
+class OneOfRequiredException extends InternalError
 {
     public function __construct(string ...$params)
     {

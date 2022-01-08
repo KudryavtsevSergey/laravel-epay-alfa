@@ -2,9 +2,9 @@
 
 namespace Sun\EpayAlfa\Exceptions\Internal;
 
-use RuntimeException;
+use Sun\EpayAlfa\Exceptions\InternalError;
 
-class ProviderNotFoundException extends RuntimeException
+class ProviderNotFoundException extends InternalError
 {
     public function __construct(string $provider)
     {

@@ -2,9 +2,9 @@
 
 namespace Sun\EpayAlfa\Exceptions\Internal;
 
-use RuntimeException;
+use Sun\EpayAlfa\Exceptions\InternalError;
 
-class FieldCannotBeNullException extends RuntimeException
+class FieldCannotBeNullException extends InternalError
 {
     public function __construct(string $provider, string $field)
     {
