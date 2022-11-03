@@ -8,29 +8,16 @@ use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
 
 class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
 {
-    private int $amount;
-    private string $mdOrder;
-    private string $orderNumber;
-    private string $checksum;
-    private string $operation;
-    private int $status;
-
     public function __construct(
-        int $amount,
-        string $mdOrder,
-        string $orderNumber,
-        string $checksum,
-        string $operation,
-        int $status
+        private int $amount,
+        private string $mdOrder,
+        private string $orderNumber,
+        private string $checksum,
+        private string $operation,
+        private int $status,
     ) {
         OperationEnum::checkAllowedValue($operation);
         OperationStatusEnum::checkAllowedValue($status);
-        $this->amount = $amount;
-        $this->mdOrder = $mdOrder;
-        $this->orderNumber = $orderNumber;
-        $this->checksum = $checksum;
-        $this->operation = $operation;
-        $this->status = $status;
     }
 
     public function getAmount(): int

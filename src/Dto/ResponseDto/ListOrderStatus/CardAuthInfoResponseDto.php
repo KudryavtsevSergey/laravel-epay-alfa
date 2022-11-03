@@ -4,21 +4,12 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 
 class CardAuthInfoResponseDto
 {
-    private ?int $pan;
-    private ?int $expiration;
-    private ?string $cardholderName;
-    private ?string $approvalCode;
-
     public function __construct(
-        ?int $pan = null,
-        ?int $expiration = null,
-        ?string $cardholderName = null,
-        ?string $approvalCode = null
+        private ?int $pan = null,
+        private ?int $expiration = null,
+        private ?string $cardholderName = null,
+        private ?string $approvalCode = null,
     ) {
-        $this->pan = $pan;
-        $this->expiration = $expiration;
-        $this->cardholderName = $cardholderName;
-        $this->approvalCode = $approvalCode;
     }
 
     public function getPan(): ?int

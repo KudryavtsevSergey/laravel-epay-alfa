@@ -6,12 +6,10 @@ use Sun\EpayAlfa\Enum\LanguageEnum;
 
 abstract class AbstractRequestDto implements RequestDtoInterface
 {
-    private ?string $language;
-
-    public function __construct(?string $language = null)
-    {
+    public function __construct(
+        private ?string $language = null,
+    ) {
         LanguageEnum::checkAllowedValue($language, true);
-        $this->language = $language;
     }
 
     public function getLanguage(): ?string

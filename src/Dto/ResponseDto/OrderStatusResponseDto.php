@@ -6,42 +6,21 @@ use Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus\BindingInfoResponseDto;
 
 class OrderStatusResponseDto extends AbstractErrorResponseDto
 {
-    private string $orderNumber;
-    private int $amount;
-    private ?int $orderStatus;
-    private ?string $pan;
-    private ?int $expiration;
-    private ?string $cardholderName;
-    private ?int $currency;
-    private ?string $approvalCode;
-    private ?string $ip;
-    private ?BindingInfoResponseDto $bindingInfo;
-
     public function __construct(
-        string $orderNumber,
-        int $amount,
-        ?int $orderStatus = null,
-        ?string $pan = null,
-        ?int $expiration = null,
-        ?string $cardholderName = null,
-        ?int $currency = null,
-        ?string $approvalCode = null,
-        ?string $ip = null,
-        ?BindingInfoResponseDto $bindingInfo = null,
+        private string $orderNumber,
+        private int $amount,
+        private ?int $orderStatus = null,
+        private ?string $pan = null,
+        private ?int $expiration = null,
+        private ?string $cardholderName = null,
+        private ?int $currency = null,
+        private ?string $approvalCode = null,
+        private ?string $ip = null,
+        private ?BindingInfoResponseDto $bindingInfo = null,
         ?int $errorCode = null,
-        ?string $errorMessage = null
+        ?string $errorMessage = null,
     ) {
         parent::__construct($errorCode, $errorMessage);
-        $this->orderNumber = $orderNumber;
-        $this->amount = $amount;
-        $this->orderStatus = $orderStatus;
-        $this->pan = $pan;
-        $this->expiration = $expiration;
-        $this->cardholderName = $cardholderName;
-        $this->currency = $currency;
-        $this->approvalCode = $approvalCode;
-        $this->ip = $ip;
-        $this->bindingInfo = $bindingInfo;
     }
 
     public function getOrderNumber(): string

@@ -13,11 +13,9 @@ class EpayAlfa
 {
     public static ?string $keyPath = null;
 
-    private EpayAlfaConfig $config;
-
-    public function __construct(EpayAlfaConfig $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        private EpayAlfaConfig $config,
+    ) {
     }
 
     public function createApiService(string $provider): AlfaApiService

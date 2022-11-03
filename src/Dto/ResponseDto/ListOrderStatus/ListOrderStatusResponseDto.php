@@ -4,32 +4,6 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 
 class ListOrderStatusResponseDto
 {
-    private string $orderNumber;
-    private int $orderStatus;
-    private int $actionCode;
-    private string $actionCodeDescription;
-    private int $amount;
-    private int $currency;
-    private string $date;
-    private int $errorCode;
-    private ?string $orderDescription;
-    private ?string $ip;
-    /**
-     * @var MerchantOrderParamResponseDto[]
-     */
-    private array $merchantOrderParams;
-    /**
-     * @var AttributeResponseDto[]
-     */
-    private array $attributes;
-    private ?CardAuthInfoResponseDto $cardAuthInfo;
-    private ?BindingInfoResponseDto $bindingInfo;
-    private ?string $authDateTime;
-    private ?string $terminalId;
-    private ?string $authRefNum;
-    private ?PaymentAmountInfoResponseDto $paymentAmountInfo;
-    private ?BankInfoResponseDto $bankInfo;
-
     /**
      * @param string $orderNumber
      * @param int $orderStatus
@@ -52,45 +26,26 @@ class ListOrderStatusResponseDto
      * @param BankInfoResponseDto|null $bankInfo
      */
     public function __construct(
-        string $orderNumber,
-        int $orderStatus,
-        int $actionCode,
-        string $actionCodeDescription,
-        int $amount,
-        int $currency,
-        string $date,
-        int $errorCode,
-        ?string $orderDescription = null,
-        ?string $ip = null,
-        array $merchantOrderParams = [],
-        array $attributes = [],
-        ?CardAuthInfoResponseDto $cardAuthInfo = null,
-        ?BindingInfoResponseDto $bindingInfo = null,
-        ?string $authDateTime = null,
-        ?string $terminalId = null,
-        ?string $authRefNum = null,
-        ?PaymentAmountInfoResponseDto $paymentAmountInfo = null,
-        ?BankInfoResponseDto $bankInfo = null
+        private string $orderNumber,
+        private int $orderStatus,
+        private int $actionCode,
+        private string $actionCodeDescription,
+        private int $amount,
+        private int $currency,
+        private string $date,
+        private int $errorCode,
+        private ?string $orderDescription = null,
+        private ?string $ip = null,
+        private array $merchantOrderParams = [],
+        private array $attributes = [],
+        private ?CardAuthInfoResponseDto $cardAuthInfo = null,
+        private ?BindingInfoResponseDto $bindingInfo = null,
+        private ?string $authDateTime = null,
+        private ?string $terminalId = null,
+        private ?string $authRefNum = null,
+        private ?PaymentAmountInfoResponseDto $paymentAmountInfo = null,
+        private ?BankInfoResponseDto $bankInfo = null,
     ) {
-        $this->orderNumber = $orderNumber;
-        $this->orderStatus = $orderStatus;
-        $this->actionCode = $actionCode;
-        $this->actionCodeDescription = $actionCodeDescription;
-        $this->amount = $amount;
-        $this->currency = $currency;
-        $this->date = $date;
-        $this->errorCode = $errorCode;
-        $this->orderDescription = $orderDescription;
-        $this->ip = $ip;
-        $this->merchantOrderParams = $merchantOrderParams;
-        $this->attributes = $attributes;
-        $this->cardAuthInfo = $cardAuthInfo;
-        $this->bindingInfo = $bindingInfo;
-        $this->authDateTime = $authDateTime;
-        $this->terminalId = $terminalId;
-        $this->authRefNum = $authRefNum;
-        $this->paymentAmountInfo = $paymentAmountInfo;
-        $this->bankInfo = $bankInfo;
     }
 
     public function getOrderNumber(): string

@@ -9,15 +9,23 @@ use League\OAuth2\Server\CryptKey;
 
 class AsymmetricChecksumVerifier implements ChecksumVerifier
 {
+    private const EMPTY = 'empty';
+
     private Sha256 $signer;
     private Key $privateKey;
     private Key $publicKey;
 
-    public function __construct(CryptKey $privateKey, CryptKey $publicKey)
+    public function __construct(?CryptKey $privateKey, ?CryptKey $publicKey)
     {
         $this->signer = new Sha256();
-        $this->privateKey = InMemory::plainText($privateKey->getKeyContents(), $privateKey->getPassPhrase() ?? '');
-        $this->publicKey = InMemory::plainText($publicKey->getKeyContents(), $publicKey->getPassPhrase() ?? '');
+        $this->privateKey = InMemory::plainText(
+            $privateKey?->getKeyContents() ?? self::EMPTY,
+            $privateKey?->getPassPhrase() ?? ''
+        );
+        $this->publicKey = InMemory::plainText(
+            $publicKey?->getKeyContents() ?? self::EMPTY,
+            $publicKey->getPassPhrase() ?? ''
+        );
     }
 
     public function verify(ChecksumInterface $checksum): bool

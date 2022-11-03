@@ -4,18 +4,11 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class BankInfoResponseDto
 {
-    private ?string $bankName;
-    private ?string $bankCountryCode;
-    private ?string $bankCountryName;
-
     public function __construct(
-        ?string $bankName = null,
-        ?string $bankCountryCode = null,
-        ?string $bankCountryName = null
+        private ?string $bankName = null,
+        private ?string $bankCountryCode = null,
+        private ?string $bankCountryName = null,
     ) {
-        $this->bankName = $bankName;
-        $this->bankCountryCode = $bankCountryCode;
-        $this->bankCountryName = $bankCountryName;
     }
 
     public function getBankName(): ?string

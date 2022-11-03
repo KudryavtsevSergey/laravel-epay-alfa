@@ -9,11 +9,9 @@ use Sun\EpayAlfa\EpayAlfa;
 
 class ChecksumVerifierFactory
 {
-    private EpayAlfaConfig $config;
-
-    public function __construct(EpayAlfaConfig $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        private EpayAlfaConfig $config,
+    ) {
     }
 
     public function createByNotificationType(string $notificationType): ChecksumVerifier
@@ -30,19 +28,19 @@ class ChecksumVerifierFactory
         }
     }
 
-    private function makePrivateCryptKey(): CryptKey
+    private function makePrivateCryptKey(): ?CryptKey
     {
         return $this->makeCryptKey(EpayAlfa::privateKeyPath());
     }
 
-    private function makePublicCryptKey(): CryptKey
+    private function makePublicCryptKey(): ?CryptKey
     {
         return $this->makeCryptKey(EpayAlfa::publicKeyPath());
     }
 
-    private function makeCryptKey(string $file): CryptKey
+    private function makeCryptKey(string $file): ?CryptKey
     {
         $key = sprintf('file://%s', $file);
-        return new CryptKey($key, null, false);
+        return is_file($key) ? new CryptKey($key, keyPermissionsCheck: false) : null;
     }
 }

@@ -4,13 +4,10 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 
 class BindingInfoResponseDto
 {
-    private ?string $clientId;
-    private ?string $bindingId;
-
-    public function __construct(?string $clientId = null, ?string $bindingId = null)
-    {
-        $this->clientId = $clientId;
-        $this->bindingId = $bindingId;
+    public function __construct(
+        private ?string $clientId = null,
+        private ?string $bindingId = null,
+    ) {
     }
 
     public function getClientId(): ?string

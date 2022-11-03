@@ -5,8 +5,8 @@ namespace Sun\EpayAlfa\Mapper;
 use Sun\EpayAlfa\Dto\RequestDto\RequestDtoInterface;
 use Sun\EpayAlfa\Dto\ResponseDto\ResponseDtoInterface;
 use Sun\EpayAlfa\Exceptions\InternalError;
+use Symfony\Component\PropertyInfo\Extractor\ConstructorExtractor;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -22,20 +22,17 @@ class ArrayObjectMapper
 
     public function __construct()
     {
-        $reflectionExtractor = new ReflectionExtractor();
         $phpDocExtractor = new PhpDocExtractor();
-        $propertyTypeExtractor = new PropertyInfoExtractor(
-            [$reflectionExtractor],
-            [$phpDocExtractor, $reflectionExtractor],
-            [$phpDocExtractor],
-            [$reflectionExtractor],
-            [$reflectionExtractor]
+        $extractor = new PropertyInfoExtractor(
+            typeExtractors: [new ConstructorExtractor([$phpDocExtractor]), $phpDocExtractor]
         );
         $normalizers = [
             new DateTimeNormalizer([
                 DateTimeNormalizer::FORMAT_KEY => 'Y-m-dTH:i:s',
             ]),
-            new ObjectNormalizer(null, null, null, $propertyTypeExtractor),
+            new ObjectNormalizer(
+                propertyTypeExtractor: $extractor
+            ),
             new ArrayDenormalizer(),
         ];
         $this->serializer = new Serializer($normalizers);

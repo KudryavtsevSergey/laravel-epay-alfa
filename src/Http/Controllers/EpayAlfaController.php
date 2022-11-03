@@ -18,21 +18,12 @@ use Throwable;
 
 class EpayAlfaController extends AbstractController
 {
-    private ArrayObjectMapper $arrayObjectMapper;
-    private Dispatcher $dispatcher;
-    private EpayAlfaConfig $config;
-    private ChecksumVerifierFactory $checksumVerifierFactory;
-
     public function __construct(
-        ArrayObjectMapper $arrayObjectMapper,
-        Dispatcher $dispatcher,
-        EpayAlfaConfig $config,
-        ChecksumVerifierFactory $checksumVerifierFactory
+        private ArrayObjectMapper $arrayObjectMapper,
+        private Dispatcher $dispatcher,
+        private EpayAlfaConfig $config,
+        private ChecksumVerifierFactory $checksumVerifierFactory,
     ) {
-        $this->arrayObjectMapper = $arrayObjectMapper;
-        $this->dispatcher = $dispatcher;
-        $this->config = $config;
-        $this->checksumVerifierFactory = $checksumVerifierFactory;
     }
 
     public function callback(string $provider, Request $request): Response

@@ -4,24 +4,13 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class BindingInfoResponseDto
 {
-    private ?string $clientId;
-    private ?string $bindingId;
-    private ?string $authDateTime;
-    private ?string $authRefNum;
-    private ?string $terminalId;
-
     public function __construct(
-        ?string $clientId = null,
-        ?string $bindingId = null,
-        ?string $authDateTime = null,
-        ?string $authRefNum = null,
-        ?string $terminalId = null
+        private ?string $clientId = null,
+        private ?string $bindingId = null,
+        private ?string $authDateTime = null,
+        private ?string $authRefNum = null,
+        private ?string $terminalId = null,
     ) {
-        $this->clientId = $clientId;
-        $this->bindingId = $bindingId;
-        $this->authDateTime = $authDateTime;
-        $this->authRefNum = $authRefNum;
-        $this->terminalId = $terminalId;
     }
 
     public function getClientId(): ?string

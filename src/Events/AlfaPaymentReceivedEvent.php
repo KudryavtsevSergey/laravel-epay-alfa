@@ -2,15 +2,14 @@
 
 namespace Sun\EpayAlfa\Events;
 
+use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
+
 class AlfaPaymentReceivedEvent
 {
-    private string $provider;
-    private $orderPaymentDto;
-
-    public function __construct(string $provider, $orderPaymentDto)
-    {
-        $this->provider = $provider;
-        $this->orderPaymentDto = $orderPaymentDto;
+    public function __construct(
+        private string $provider,
+        private ChecksumInterface $orderPaymentDto,
+    ) {
     }
 
     public function getProvider(): string
@@ -18,7 +17,7 @@ class AlfaPaymentReceivedEvent
         return $this->provider;
     }
 
-    public function getOrderPaymentDto()
+    public function getOrderPaymentDto(): ChecksumInterface
     {
         return $this->orderPaymentDto;
     }

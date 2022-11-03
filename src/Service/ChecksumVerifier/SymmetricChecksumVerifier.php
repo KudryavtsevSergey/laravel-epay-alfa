@@ -4,11 +4,9 @@ namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
 class SymmetricChecksumVerifier implements ChecksumVerifier
 {
-    private string $secret;
-
-    public function __construct(string $secret)
-    {
-        $this->secret = $secret;
+    public function __construct(
+        private string $secret,
+    ) {
     }
 
     public function verify(ChecksumInterface $checksum): bool

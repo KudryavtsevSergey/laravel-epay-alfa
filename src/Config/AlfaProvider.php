@@ -4,21 +4,12 @@ namespace Sun\EpayAlfa\Config;
 
 class AlfaProvider
 {
-    private string $username;
-    private string $password;
-    private string $gateway;
-    private string $notificationType;
-
     public function __construct(
-        string $username,
-        string $password,
-        string $gateway,
-        string $notificationType
+        private string $username,
+        private string $password,
+        private string $gateway,
+        private string $notificationType,
     ) {
-        $this->username = $username;
-        $this->password = $password;
-        $this->gateway = $gateway;
-        $this->notificationType = $notificationType;
     }
 
     public function getUsername(): string

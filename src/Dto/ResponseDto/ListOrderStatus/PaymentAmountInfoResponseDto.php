@@ -4,21 +4,12 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 
 class PaymentAmountInfoResponseDto
 {
-    private ?int $paymentState;
-    private ?int $approvedAmount;
-    private ?int $depositedAmount;
-    private ?int $refundedAmount;
-
     public function __construct(
-        ?int $paymentState = null,
-        ?int $approvedAmount = null,
-        ?int $depositedAmount = null,
-        ?int $refundedAmount = null
+        private ?int $paymentState = null,
+        private ?int $approvedAmount = null,
+        private ?int $depositedAmount = null,
+        private ?int $refundedAmount = null,
     ) {
-        $this->paymentState = $paymentState;
-        $this->approvedAmount = $approvedAmount;
-        $this->depositedAmount = $depositedAmount;
-        $this->refundedAmount = $refundedAmount;
     }
 
     public function getPaymentState(): ?int

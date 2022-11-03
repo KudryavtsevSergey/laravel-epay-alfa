@@ -4,15 +4,11 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class SecureAuthInfoResponseDto
 {
-    private ?int $eci;
-    private ?string $cavv;
-    private ?string $xid;
-
-    public function __construct(?int $eci = null, ?string $cavv = null, ?string $xid = null)
-    {
-        $this->eci = $eci;
-        $this->cavv = $cavv;
-        $this->xid = $xid;
+    public function __construct(
+        private ?int $eci = null,
+        private ?string $cavv = null,
+        private ?string $xid = null,
+    ) {
     }
 
     public function getEci(): ?int

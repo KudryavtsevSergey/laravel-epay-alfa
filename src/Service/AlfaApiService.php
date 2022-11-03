@@ -2,17 +2,6 @@
 
 namespace Sun\EpayAlfa\Service;
 
-use Sun\EpayAlfa\Dto\RequestDto\RequestDtoInterface;
-use Sun\EpayAlfa\Dto\ResponseDto\ResponseDtoInterface;
-use Sun\EpayAlfa\Enum\ApiEnum;
-use Sun\EpayAlfa\Dto\ResponseDto\DepositResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\LastOrdersForMerchantsResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtendedResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\OrderStatusResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\PaymentOrderBindingResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\RefundResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\RegisterResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\ReverseResponseDto;
 use Sun\EpayAlfa\Dto\RequestDto\DepositRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\GetOrderStatusExtendedRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\GetOrderStatusRequestDto;
@@ -20,15 +9,24 @@ use Sun\EpayAlfa\Dto\RequestDto\LastOrdersForMerchantsRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\PaymentOrderBindingRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\RefundRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\RegisterRequestDto;
+use Sun\EpayAlfa\Dto\RequestDto\RequestDtoInterface;
 use Sun\EpayAlfa\Dto\RequestDto\ReverseRequestDto;
+use Sun\EpayAlfa\Dto\ResponseDto\DepositResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\LastOrdersForMerchantsResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtendedResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\OrderStatusResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\PaymentOrderBindingResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\RefundResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\RegisterResponseDto;
+use Sun\EpayAlfa\Dto\ResponseDto\ResponseDtoInterface;
+use Sun\EpayAlfa\Dto\ResponseDto\ReverseResponseDto;
+use Sun\EpayAlfa\Enum\ApiEnum;
 
 class AlfaApiService
 {
-    private AlfaHttpClientService $httpClient;
-
-    public function __construct(AlfaHttpClientService $httpClient)
-    {
-        $this->httpClient = $httpClient;
+    public function __construct(
+        private AlfaHttpClientService $httpClient,
+    ) {
     }
 
     public function registerDo(RegisterRequestDto $request): RegisterResponseDto
@@ -87,15 +85,19 @@ class AlfaApiService
         return $depositDto;
     }
 
-    public function getLastOrdersForMerchants(LastOrdersForMerchantsRequestDto $request): LastOrdersForMerchantsResponseDto
-    {
+    public function getLastOrdersForMerchants(
+        LastOrdersForMerchantsRequestDto $request
+    ): LastOrdersForMerchantsResponseDto {
         /** @var LastOrdersForMerchantsResponseDto $lastOrdersForMerchantsDto */
         $lastOrdersForMerchantsDto = $this->sendRequest(ApiEnum::GET_LAST_ORDERS_FOR_MERCHANTS, $request, LastOrdersForMerchantsResponseDto::class);
         return $lastOrdersForMerchantsDto;
     }
 
-    private function sendRequest(string $method, RequestDtoInterface $requestDto, string $responseType): ResponseDtoInterface
-    {
+    private function sendRequest(
+        string $method,
+        RequestDtoInterface $requestDto,
+        string $responseType
+    ): ResponseDtoInterface {
         return $this->httpClient->request($method, $requestDto, $responseType);
     }
 }

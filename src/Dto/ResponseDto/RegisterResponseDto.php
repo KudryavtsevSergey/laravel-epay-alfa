@@ -4,18 +4,13 @@ namespace Sun\EpayAlfa\Dto\ResponseDto;
 
 class RegisterResponseDto extends AbstractErrorResponseDto
 {
-    private ?string $orderId;
-    private ?string $formUrl;
-
     public function __construct(
-        ?string $orderId = null,
-        ?string $formUrl = null,
+        private ?string $orderId = null,
+        private ?string $formUrl = null,
         ?int $errorCode = null,
-        ?string $errorMessage = null
+        ?string $errorMessage = null,
     ) {
         parent::__construct($errorCode, $errorMessage);
-        $this->orderId = $orderId;
-        $this->formUrl = $formUrl;
     }
 
     public function getOrderId(): ?string

@@ -4,36 +4,17 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 
 class CardAuthInfoResponseDto
 {
-    private string $paymentSystem;
-    private string $product;
-    private string $paymentWay;
-    private ?int $maskedPan;
-    private ?int $expiration;
-    private ?string $cardholderName;
-    private ?string $approvalCode;
-    private ?bool $chargeback;
-    private ?SecureAuthInfoResponseDto $secureAuthInfo;
-
     public function __construct(
-        string $paymentSystem,
-        string $product,
-        string $paymentWay,
-        ?int $maskedPan = null,
-        ?int $expiration = null,
-        ?string $cardholderName = null,
-        ?string $approvalCode = null,
-        ?bool $chargeback = null,
-        ?SecureAuthInfoResponseDto $secureAuthInfo = null
+        private string $paymentSystem,
+        private string $product,
+        private string $paymentWay,
+        private ?int $maskedPan = null,
+        private ?int $expiration = null,
+        private ?string $cardholderName = null,
+        private ?string $approvalCode = null,
+        private ?bool $chargeback = null,
+        private ?SecureAuthInfoResponseDto $secureAuthInfo = null,
     ) {
-        $this->paymentSystem = $paymentSystem;
-        $this->product = $product;
-        $this->paymentWay = $paymentWay;
-        $this->maskedPan = $maskedPan;
-        $this->expiration = $expiration;
-        $this->cardholderName = $cardholderName;
-        $this->approvalCode = $approvalCode;
-        $this->chargeback = $chargeback;
-        $this->secureAuthInfo = $secureAuthInfo;
     }
 
     public function getPaymentSystem(): string

@@ -4,13 +4,10 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 
 class MerchantOrderParamResponseDto
 {
-    private string $name;
-    private string $value;
-
-    public function __construct(string $name, string $value)
-    {
-        $this->name = $name;
-        $this->value = $value;
+    public function __construct(
+        private string $name,
+        private string $value,
+    ) {
     }
 
     public function getName(): string

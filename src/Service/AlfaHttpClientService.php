@@ -15,17 +15,15 @@ class AlfaHttpClientService
 {
     private const REQUEST_METHOD = 'POST';
 
-    private ArrayObjectMapper $arrayObjectMapper;
-    private AlfaProvider $alfaProvider;
     private Client $client;
 
-    public function __construct(ArrayObjectMapper $arrayObjectMapper, AlfaProvider $alfaProvider)
-    {
-        $this->arrayObjectMapper = $arrayObjectMapper;
+    public function __construct(
+        private ArrayObjectMapper $arrayObjectMapper,
+        private AlfaProvider $alfaProvider,
+    ) {
         $this->client = new Client([
             'base_uri' => $alfaProvider->getGateway(),
         ]);
-        $this->alfaProvider = $alfaProvider;
     }
 
     public function request(string $method, RequestDtoInterface $requestDto, string $responseType): ResponseDtoInterface
