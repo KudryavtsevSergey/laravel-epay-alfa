@@ -2,16 +2,41 @@
 
 namespace Sun\EpayAlfa;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class EpayAlfaServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/../config/epayalfa.php' => config_path('epayalfa.php')
-        ], 'epayalfa-config');
+        $this->registerRoutes();
+        $this->registerPublishing();
+        $this->registerCommands();
+    }
 
+    protected function registerRoutes(): void
+    {
+        if (EpayAlfa::$registersRoutes) {
+            Route::group([
+                'prefix' => config('epayalfa.path', 'epayalfa'),
+                'namespace' => '\Sun\EpayAlfa\Http\Controllers',
+            ], function (): void {
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            });
+        }
+    }
+
+    protected function registerPublishing(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/epayalfa.php' => config_path('epayalfa.php')
+            ], 'epayalfa-config');
+        }
+    }
+
+    protected function registerCommands(): void
+    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\KeysCommand::class,
@@ -19,7 +44,7 @@ class EpayAlfaServiceProvider extends ServiceProvider
         }
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/epayalfa.php', 'epayalfa');
 
