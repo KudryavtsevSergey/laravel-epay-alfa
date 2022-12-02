@@ -2,8 +2,11 @@
 
 namespace Sun\EpayAlfa;
 
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Sun\EpayAlfa\Config\EpayAlfaConfig;
 
 class EpayAlfaServiceProvider extends ServiceProvider
 {
@@ -49,5 +52,10 @@ class EpayAlfaServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/epayalfa.php', 'epayalfa');
 
         $this->app->singleton(Facade::FACADE_ACCESSOR, EpayAlfa::class);
+
+        $this->app->singleton(EpayAlfaConfig::class, static fn(
+            Container $container,
+        ): EpayAlfaConfig => new EpayAlfaConfig($container->make(Repository::class)));
+
     }
 }

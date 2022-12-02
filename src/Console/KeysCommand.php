@@ -4,11 +4,13 @@ namespace Sun\EpayAlfa\Console;
 
 use Illuminate\Console\Command;
 use phpseclib3\Crypt\RSA;
+use Sun\EpayAlfa\Enum\AlfaProviderEnum;
 use Sun\EpayAlfa\EpayAlfa;
 
 class KeysCommand extends Command
 {
     protected $signature = 'alfa:keys
+                                      {--provider=ru: The provider for keys, options: ru, by}
                                       {--force : Overwrite keys they already exist}
                                       {--length=4096 : The length of the private key}';
 
@@ -16,9 +18,12 @@ class KeysCommand extends Command
 
     public function handle(): void
     {
+        $provider = $this->option('provider');
+        AlfaProviderEnum::checkAllowedValue($provider);
+
         [$publicKey, $privateKey] = [
-            EpayAlfa::publicKeyPath(),
-            EpayAlfa::privateKeyPath(),
+            EpayAlfa::publicKeyPath($provider),
+            EpayAlfa::privateKeyPath($provider),
         ];
 
         if ((file_exists($publicKey) || file_exists($privateKey)) && !$this->option('force')) {

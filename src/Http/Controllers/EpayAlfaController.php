@@ -47,8 +47,8 @@ class EpayAlfaController extends AbstractController
 
     private function verifyPayment(string $provider, ChecksumInterface $checksum): void
     {
-        $notificationType = $this->config->getAlfaProvider($provider)->getNotificationType();
-        $checksumVerifier = $this->checksumVerifierFactory->createByNotificationType($notificationType);
+        $alfaProvider = $this->config->getAlfaProvider($provider);
+        $checksumVerifier = $this->checksumVerifierFactory->create($alfaProvider);
         if (!$checksumVerifier->verify($checksum)) {
             throw new WrongEpayAlfaChecksumException($checksum->getChecksum());
         }

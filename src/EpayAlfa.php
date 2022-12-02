@@ -3,6 +3,7 @@
 namespace Sun\EpayAlfa;
 
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
+use Sun\EpayAlfa\Enum\AlfaProviderEnum;
 use Sun\EpayAlfa\Mapper\ArrayObjectMapper;
 use Sun\EpayAlfa\Service\AlfaApiService;
 use Sun\EpayAlfa\Service\AlfaHttpClientService;
@@ -33,14 +34,16 @@ class EpayAlfa
         static::$registersRoutes = false;
     }
 
-    public static function publicKeyPath(): string
+    public static function publicKeyPath(string $provider): string
     {
-        return self::keyPath('alfa-public.key');
+        AlfaProviderEnum::checkAllowedValue($provider);
+        return self::keyPath(sprintf('alfa-%s-public.key', $provider));
     }
 
-    public static function privateKeyPath(): string
+    public static function privateKeyPath(string $provider): string
     {
-        return self::keyPath('alfa-private.key');
+        AlfaProviderEnum::checkAllowedValue($provider);
+        return self::keyPath(sprintf('alfa-%s-private.key', $provider));
     }
 
     private static function keyPath($file): string
