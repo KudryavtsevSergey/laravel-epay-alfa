@@ -24,7 +24,7 @@ class EpayAlfaConfig
             $this->extractFieldFromConfig($providerData, $provider, 'username'),
             $this->extractFieldFromConfig($providerData, $provider, 'password'),
             rtrim($this->extractFieldFromConfig($providerData, $provider, 'gateway'), '/'),
-            $this->extractFieldFromConfig($providerData, $provider, 'notification_type'),
+            $this->extractFieldFromConfig($providerData, $provider, 'check_type'),
             $this->extractFieldFromConfig($providerData, $provider, 'secret', true),
             $this->extractFieldFromConfig($providerData, $provider, 'public_key', true),
             $this->extractFieldFromConfig($providerData, $provider, 'private_key', true)

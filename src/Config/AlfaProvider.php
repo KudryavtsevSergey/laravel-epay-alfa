@@ -13,7 +13,7 @@ class AlfaProvider
         private string $username,
         private string $password,
         private string $gateway,
-        private string $notificationType,
+        private string $checkType,
         private ?string $secret,
         private ?string $publicKey,
         private ?string $privateKey,
@@ -36,9 +36,9 @@ class AlfaProvider
         return $this->gateway;
     }
 
-    public function getNotificationType(): string
+    public function getCheckType(): string
     {
-        return $this->notificationType;
+        return $this->checkType;
     }
 
     public function getSecret(): ?string

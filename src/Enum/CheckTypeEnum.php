@@ -2,7 +2,7 @@
 
 namespace Sun\EpayAlfa\Enum;
 
-class NotificationTypeEnum extends AbstractEnum
+class CheckTypeEnum extends AbstractEnum
 {
     public const NO_CHECKSUM = 'NO_CHECKSUM';
     public const SYMMETRIC_CHECKSUM = 'SYMMETRIC_CHECKSUM';
