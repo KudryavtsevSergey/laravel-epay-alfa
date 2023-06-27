@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Service;
 
 use GuzzleHttp\Client;
@@ -26,6 +28,13 @@ class AlfaHttpClientService
         ]);
     }
 
+    /**
+     * @template T of ResponseDtoInterface
+     * @param string $method
+     * @param RequestDtoInterface $requestDto
+     * @param class-string<T> $responseType
+     * @return T
+     */
     public function request(string $method, RequestDtoInterface $requestDto, string $responseType): ResponseDtoInterface
     {
         try {
@@ -47,6 +56,6 @@ class AlfaHttpClientService
 
     private function encodeResponse(string $body): array
     {
-        return json_decode($body, true);
+        return json_decode($body, true, flags: JSON_THROW_ON_ERROR);
     }
 }

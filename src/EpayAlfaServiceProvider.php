@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa;
 
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Sun\EpayAlfa\Config\EpayAlfaConfig;
 
 class EpayAlfaServiceProvider extends ServiceProvider
 {
@@ -14,7 +13,6 @@ class EpayAlfaServiceProvider extends ServiceProvider
     {
         $this->registerRoutes();
         $this->registerPublishing();
-        $this->registerCommands();
     }
 
     protected function registerRoutes(): void
@@ -22,7 +20,6 @@ class EpayAlfaServiceProvider extends ServiceProvider
         if (EpayAlfa::$registersRoutes) {
             Route::group([
                 'prefix' => config('epayalfa.path', 'epayalfa'),
-                'namespace' => '\Sun\EpayAlfa\Http\Controllers',
             ], function (): void {
                 $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
             });
@@ -38,24 +35,10 @@ class EpayAlfaServiceProvider extends ServiceProvider
         }
     }
 
-    protected function registerCommands(): void
-    {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Console\KeysCommand::class,
-            ]);
-        }
-    }
-
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/epayalfa.php', 'epayalfa');
 
         $this->app->singleton(Facade::FACADE_ACCESSOR, EpayAlfa::class);
-
-        $this->app->singleton(EpayAlfaConfig::class, static fn(
-            Container $container,
-        ): EpayAlfaConfig => new EpayAlfaConfig($container->make(Repository::class)));
-
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Service;
 
 use Sun\EpayAlfa\Dto\RequestDto\DepositRequestDto;
@@ -9,7 +11,6 @@ use Sun\EpayAlfa\Dto\RequestDto\LastOrdersForMerchantsRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\PaymentOrderBindingRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\RefundRequestDto;
 use Sun\EpayAlfa\Dto\RequestDto\RegisterRequestDto;
-use Sun\EpayAlfa\Dto\RequestDto\RequestDtoInterface;
 use Sun\EpayAlfa\Dto\RequestDto\ReverseRequestDto;
 use Sun\EpayAlfa\Dto\ResponseDto\DepositResponseDto;
 use Sun\EpayAlfa\Dto\ResponseDto\LastOrdersForMerchantsResponseDto;
@@ -18,9 +19,8 @@ use Sun\EpayAlfa\Dto\ResponseDto\OrderStatusResponseDto;
 use Sun\EpayAlfa\Dto\ResponseDto\PaymentOrderBindingResponseDto;
 use Sun\EpayAlfa\Dto\ResponseDto\RefundResponseDto;
 use Sun\EpayAlfa\Dto\ResponseDto\RegisterResponseDto;
-use Sun\EpayAlfa\Dto\ResponseDto\ResponseDtoInterface;
 use Sun\EpayAlfa\Dto\ResponseDto\ReverseResponseDto;
-use Sun\EpayAlfa\Enum\ApiEnum;
+use Sun\EpayAlfa\Constant\ApiConstant;
 
 class AlfaApiService
 {
@@ -31,73 +31,59 @@ class AlfaApiService
 
     public function registerDo(RegisterRequestDto $request): RegisterResponseDto
     {
-        /** @var RegisterResponseDto $registerDto */
-        $registerDto = $this->sendRequest(ApiEnum::REGISTER, $request, RegisterResponseDto::class);
-        return $registerDto;
+        return $this->httpClient->request(ApiConstant::REGISTER, $request, RegisterResponseDto::class);
     }
 
     public function getOrderStatus(GetOrderStatusRequestDto $request): OrderStatusResponseDto
     {
-        /** @var OrderStatusResponseDto $orderStatusDto */
-        $orderStatusDto = $this->sendRequest(ApiEnum::GET_ORDER_STATUS, $request, OrderStatusResponseDto::class);
-        return $orderStatusDto;
+        return $this->httpClient->request(ApiConstant::GET_ORDER_STATUS, $request, OrderStatusResponseDto::class);
     }
 
     public function getOrderStatusExtended(GetOrderStatusExtendedRequestDto $request): OrderStatusExtendedResponseDto
     {
-        /** @var OrderStatusExtendedResponseDto $orderStatusExtendedDto */
-        $orderStatusExtendedDto = $this->sendRequest(ApiEnum::GET_ORDER_STATUS_EXTENDED, $request, OrderStatusExtendedResponseDto::class);
-        return $orderStatusExtendedDto;
+        return $this->httpClient->request(
+            ApiConstant::GET_ORDER_STATUS_EXTENDED,
+            $request,
+            OrderStatusExtendedResponseDto::class
+        );
     }
 
     public function registerPreAuth(RegisterRequestDto $request): RegisterResponseDto
     {
-        /** @var RegisterResponseDto $registerDto */
-        $registerDto = $this->sendRequest(ApiEnum::REGISTER_PRE_AUTH, $request, RegisterResponseDto::class);
-        return $registerDto;
+        return $this->httpClient->request(ApiConstant::REGISTER_PRE_AUTH, $request, RegisterResponseDto::class);
     }
 
     public function refund(RefundRequestDto $request): RefundResponseDto
     {
-        /** @var RefundResponseDto $refundDto */
-        $refundDto = $this->sendRequest(ApiEnum::REFUND, $request, RefundResponseDto::class);
-        return $refundDto;
+        return $this->httpClient->request(ApiConstant::REFUND, $request, RefundResponseDto::class);
     }
 
     public function reverse(ReverseRequestDto $request): ReverseResponseDto
     {
-        /** @var ReverseResponseDto $reverseDto */
-        $reverseDto = $this->sendRequest(ApiEnum::REVERSE, $request, ReverseResponseDto::class);
-        return $reverseDto;
+        return $this->httpClient->request(ApiConstant::REVERSE, $request, ReverseResponseDto::class);
     }
 
     public function paymentOrderBindingDo(PaymentOrderBindingRequestDto $request): PaymentOrderBindingResponseDto
     {
-        /** @var PaymentOrderBindingResponseDto $paymentOrderBindingDto */
-        $paymentOrderBindingDto = $this->sendRequest(ApiEnum::PAYMENT_ORDER_BINDING, $request, PaymentOrderBindingResponseDto::class);
-        return $paymentOrderBindingDto;
+        return $this->httpClient->request(
+            ApiConstant::PAYMENT_ORDER_BINDING,
+            $request,
+            PaymentOrderBindingResponseDto::class
+        );
     }
 
     public function depositDo(DepositRequestDto $request): DepositResponseDto
     {
-        /** @var DepositResponseDto $depositDto */
-        $depositDto = $this->sendRequest(ApiEnum::DEPOSIT, $request, DepositResponseDto::class);
-        return $depositDto;
+        return $this->httpClient->request(ApiConstant::DEPOSIT, $request, DepositResponseDto::class);
     }
 
     public function getLastOrdersForMerchants(
         LastOrdersForMerchantsRequestDto $request
     ): LastOrdersForMerchantsResponseDto {
-        /** @var LastOrdersForMerchantsResponseDto $lastOrdersForMerchantsDto */
-        $lastOrdersForMerchantsDto = $this->sendRequest(ApiEnum::GET_LAST_ORDERS_FOR_MERCHANTS, $request, LastOrdersForMerchantsResponseDto::class);
-        return $lastOrdersForMerchantsDto;
-    }
-
-    private function sendRequest(
-        string $method,
-        RequestDtoInterface $requestDto,
-        string $responseType
-    ): ResponseDtoInterface {
-        return $this->httpClient->request($method, $requestDto, $responseType);
+        return $this->httpClient->request(
+            ApiConstant::GET_LAST_ORDERS_FOR_MERCHANTS,
+            $request,
+            LastOrdersForMerchantsResponseDto::class
+        );
     }
 }

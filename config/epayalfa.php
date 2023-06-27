@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Sun\EpayAlfa\Dto\ResponseDto\OrderPaymentDto;
 use Sun\EpayAlfa\Enum\AlfaProviderEnum;
 use Sun\EpayAlfa\Enum\CheckTypeEnum;
@@ -19,7 +21,6 @@ return [
             'gateway' => env('EPAY_ALFA_RU_GATEWAY', 'https://pay.alfabank.ru/payment/rest'),
             'check_type' => env('EPAY_ALFA_RU_CHECK_TYPE', CheckTypeEnum::SYMMETRIC_CHECKSUM),
             'secret' => env('EPAY_ALFA_RU_SECRET'),
-            'private_key' => env('EPAY_ALFA_RU_PRIVATE_KEY'),
             'public_key' => env('EPAY_ALFA_RU_PUBLIC_KEY'),
         ],
     ],

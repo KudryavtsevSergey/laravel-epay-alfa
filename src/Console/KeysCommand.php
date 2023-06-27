@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Console;
 
 use Illuminate\Console\Command;
@@ -18,7 +20,8 @@ class KeysCommand extends Command
 
     public function handle(): void
     {
-        $provider = $this->option('provider');
+        // @phpstan-ignore-next-line
+        $provider = (string)$this->option('provider');
         AlfaProviderEnum::checkAllowedValue($provider);
 
         [$publicKey, $privateKey] = [
@@ -29,8 +32,8 @@ class KeysCommand extends Command
         if ((file_exists($publicKey) || file_exists($privateKey)) && !$this->option('force')) {
             $this->error('Encryption keys already exist. Use the --force option to overwrite them.');
         } else {
-            $key = RSA::createKey($this->input ? (int) $this->option('length') : 4096);
-            file_put_contents($publicKey, (string)$key->getPublicKey());
+            $key = RSA::createKey((int)$this->option('length'));
+            file_put_contents($publicKey, $key->getPublicKey());
             file_put_contents($privateKey, (string)$key);
 
             $this->info('Encryption keys generated successfully.');

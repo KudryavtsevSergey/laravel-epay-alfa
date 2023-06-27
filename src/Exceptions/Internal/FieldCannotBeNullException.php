@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Exceptions\Internal;
 
 use Sun\EpayAlfa\Exceptions\InternalError;
 
 class FieldCannotBeNullException extends InternalError
 {
-    public function __construct(string $provider, string $field)
+    public function __construct(string $field)
     {
-        parent::__construct(sprintf('The field %s is required for provider %s.', $field, $provider));
+        parent::__construct(sprintf('The field %s is required', $field));
     }
 }

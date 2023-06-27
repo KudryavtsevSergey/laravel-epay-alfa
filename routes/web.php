@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
 
-Route::post('{provider}/callback', [
-    'uses' => 'EpayAlfaController@callback',
-    'as' => 'epayalfa.callback',
-]);
+use Illuminate\Support\Facades\Route;
+use Sun\EpayAlfa\Http\Controllers\EpayAlfaController;
+
+Route::post('{provider}/callback', EpayAlfaController::class);

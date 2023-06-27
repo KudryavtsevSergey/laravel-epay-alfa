@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Events;
 
 use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;

@@ -1,17 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Service\ChecksumVerifier;
 
-class SymmetricChecksumVerifier implements ChecksumVerifier
+use Sun\EpayAlfa\Exceptions\Request\WrongEpayAlfaChecksumException;
+
+class SymmetricChecksumVerifier implements ChecksumVerifierInterface
 {
     public function __construct(
-        private string $secret,
+        private ?string $secret,
     ) {
     }
 
     public function verify(ChecksumInterface $checksum): bool
     {
-        $expected = hash_hmac('sha256', $checksum->generatePayload(), $this->secret);
-        return strcasecmp($expected, $checksum->getChecksum()) === 0;
+        $expected = hash_hmac(
+            'sha256',
+            $checksum->generatePayload(),
+            $this->secret ?? throw new WrongEpayAlfaChecksumException()
+        );
+        return strcasecmp(
+            $expected,
+            $checksum->getChecksum() ?? throw new WrongEpayAlfaChecksumException()
+        ) === 0;
     }
 }

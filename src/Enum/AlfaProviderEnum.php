@@ -1,8 +1,8 @@
 <?php
 
-namespace Sun\EpayAlfa\Enum;
+declare(strict_types=1);
 
-use App\Enum\AbstractEnum;
+namespace Sun\EpayAlfa\Enum;
 
 class AlfaProviderEnum extends AbstractEnum
 {

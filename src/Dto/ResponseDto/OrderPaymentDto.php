@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Dto\ResponseDto;
 
 use Sun\EpayAlfa\Enum\OperationEnum;
@@ -12,7 +14,7 @@ class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
         private int $amount,
         private string $mdOrder,
         private string $orderNumber,
-        private string $checksum,
+        private ?string $checksum,
         private string $operation,
         private int $status,
     ) {
@@ -35,7 +37,7 @@ class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
         return $this->orderNumber;
     }
 
-    public function getChecksum(): string
+    public function getChecksum(): ?string
     {
         return $this->checksum;
     }

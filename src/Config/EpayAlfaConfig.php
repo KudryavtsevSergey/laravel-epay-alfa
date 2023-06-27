@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Config;
 
 use Illuminate\Contracts\Config\Repository;
@@ -21,27 +23,18 @@ class EpayAlfaConfig
 
         return new AlfaProvider(
             $provider,
-            $this->extractFieldFromConfig($providerData, $provider, 'username'),
-            $this->extractFieldFromConfig($providerData, $provider, 'password'),
-            rtrim($this->extractFieldFromConfig($providerData, $provider, 'gateway'), '/'),
-            $this->extractFieldFromConfig($providerData, $provider, 'check_type'),
-            $this->extractFieldFromConfig($providerData, $provider, 'secret', true),
-            $this->extractFieldFromConfig($providerData, $provider, 'public_key', true),
-            $this->extractFieldFromConfig($providerData, $provider, 'private_key', true)
+            $this->extractFieldFromConfig($providerData, 'username'),
+            $this->extractFieldFromConfig($providerData, 'password'),
+            rtrim($this->extractFieldFromConfig($providerData, 'gateway'), '/'),
+            $this->extractFieldFromConfig($providerData, 'check_type'),
+            $providerData['secret'] ?? null,
+            $providerData['public_key'] ?? null
         );
     }
 
-    private function extractFieldFromConfig(
-        array $providerData,
-        string $provider,
-        string $field,
-        bool $allowNull = false
-    ): ?string {
-        $value = $providerData[$field] ?? null;
-        if (!$allowNull && $value === null) {
-            throw new FieldCannotBeNullException($provider, $field);
-        }
-        return $value;
+    private function extractFieldFromConfig(array $providerData, string $field): string
+    {
+        return $providerData[$field] ?? throw new FieldCannotBeNullException($field);
     }
 
     private function getProviders(): array

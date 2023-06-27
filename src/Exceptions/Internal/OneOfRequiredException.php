@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Exceptions\Internal;
 
 use Sun\EpayAlfa\Exceptions\InternalError;

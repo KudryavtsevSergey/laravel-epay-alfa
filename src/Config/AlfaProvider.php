@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Config;
 
 use League\OAuth2\Server\CryptKey;
@@ -16,7 +18,6 @@ class AlfaProvider
         private string $checkType,
         private ?string $secret,
         private ?string $publicKey,
-        private ?string $privateKey,
     ) {
         AlfaProviderEnum::checkAllowedValue($provider);
     }
@@ -46,21 +47,11 @@ class AlfaProvider
         return $this->secret;
     }
 
-    public function makePrivateCryptKey(): ?CryptKey
+    public function makeCryptKey(): ?CryptKey
     {
-        return $this->makeCryptKey($this->privateKey, EpayAlfa::privateKeyPath($this->provider));
-    }
-
-    public function makePublicCryptKey(): ?CryptKey
-    {
-        return $this->makeCryptKey($this->publicKey, EpayAlfa::publicKeyPath($this->provider));
-    }
-
-    private function makeCryptKey(?string $key, string $file): ?CryptKey
-    {
-        $keyPath = $key !== null ? str_replace('\\n', "\n", $key) : null;
+        $keyPath = $this->publicKey !== null ? str_replace('\\n', "\n", $this->publicKey) : null;
         if ($keyPath === null) {
-            $filePath = sprintf('file://%s', $file);
+            $filePath = sprintf('file://%s', EpayAlfa::publicKeyPath($this->provider));
             if (is_file($filePath)) {
                 $keyPath = $filePath;
             }

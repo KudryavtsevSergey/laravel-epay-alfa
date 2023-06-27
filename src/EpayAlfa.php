@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa;
 
 use Sun\EpayAlfa\Config\EpayAlfaConfig;
@@ -24,7 +26,7 @@ class EpayAlfa
         return new AlfaApiService(new AlfaHttpClientService(new ArrayObjectMapper(), $alfaProvider));
     }
 
-    public static function loadKeysFrom($path): void
+    public static function loadKeysFrom(?string $path): void
     {
         static::$keyPath = $path;
     }
@@ -46,7 +48,7 @@ class EpayAlfa
         return self::keyPath(sprintf('alfa-%s-private.key', $provider));
     }
 
-    private static function keyPath($file): string
+    private static function keyPath(string $file): string
     {
         $file = ltrim($file, '/\\');
 

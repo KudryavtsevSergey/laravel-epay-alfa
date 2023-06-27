@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Enum;
 
+// TODO: not used
 class OrderStatusEnum extends AbstractEnum
 {
     public const ORDER_REGISTERED_BUT_NOT_PAID = 0;

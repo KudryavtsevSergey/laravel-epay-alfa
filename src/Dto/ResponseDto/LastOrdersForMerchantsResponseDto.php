@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sun\EpayAlfa\Dto\ResponseDto;
 
 use Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus\ListOrderStatusResponseDto;
