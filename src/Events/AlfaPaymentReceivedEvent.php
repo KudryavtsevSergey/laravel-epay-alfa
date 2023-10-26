@@ -9,8 +9,8 @@ use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
 class AlfaPaymentReceivedEvent
 {
     public function __construct(
-        private string $provider,
-        private ChecksumInterface $orderPaymentDto,
+        private readonly string $provider,
+        private readonly ChecksumInterface $orderPaymentDto,
     ) {
     }
 

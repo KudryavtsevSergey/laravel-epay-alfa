@@ -7,11 +7,11 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 class BindingInfoResponseDto
 {
     public function __construct(
-        private ?string $clientId = null,
-        private ?string $bindingId = null,
-        private ?string $authDateTime = null,
-        private ?string $authRefNum = null,
-        private ?string $terminalId = null,
+        private readonly ?string $clientId = null,
+        private readonly ?string $bindingId = null,
+        private readonly ?string $authDateTime = null,
+        private readonly ?string $authRefNum = null,
+        private readonly ?string $terminalId = null,
     ) {
     }
 

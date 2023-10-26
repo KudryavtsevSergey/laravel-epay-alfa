@@ -25,7 +25,7 @@ use Sun\EpayAlfa\Constant\ApiConstant;
 class AlfaApiService
 {
     public function __construct(
-        private AlfaHttpClientService $httpClient,
+        private readonly AlfaHttpClientService $httpClient,
     ) {
     }
 

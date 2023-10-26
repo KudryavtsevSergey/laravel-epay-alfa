@@ -14,8 +14,8 @@ abstract class AbstractOrderRequestDto extends AbstractRequestDto
      * @param string|null $language
      */
     public function __construct(
-        private ?string $orderNumber,
-        private ?string $orderId  = null,
+        private readonly ?string $orderNumber,
+        private readonly ?string $orderId  = null,
         ?string $language = null,
     ) {
         if (empty($orderNumber) && empty($orderId)) {

@@ -7,8 +7,8 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 class AttributeResponseDto
 {
     public function __construct(
-        private string $name,
-        private string $value,
+        private readonly string $name,
+        private readonly string $value,
     ) {
     }
 

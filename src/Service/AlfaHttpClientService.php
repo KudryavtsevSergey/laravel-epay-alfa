@@ -20,8 +20,8 @@ class AlfaHttpClientService
     private Client $client;
 
     public function __construct(
-        private ArrayObjectMapper $arrayObjectMapper,
-        private AlfaProvider $alfaProvider,
+        private readonly ArrayObjectMapper $arrayObjectMapper,
+        private readonly AlfaProvider $alfaProvider,
     ) {
         $this->client = new Client([
             'base_uri' => $alfaProvider->getGateway(),

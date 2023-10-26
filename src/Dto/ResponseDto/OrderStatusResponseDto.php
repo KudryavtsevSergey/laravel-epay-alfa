@@ -9,16 +9,16 @@ use Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus\BindingInfoResponseDto;
 class OrderStatusResponseDto extends AbstractErrorResponseDto
 {
     public function __construct(
-        private string $orderNumber,
-        private int $amount,
-        private ?int $orderStatus = null,
-        private ?string $pan = null,
-        private ?int $expiration = null,
-        private ?string $cardholderName = null,
-        private ?int $currency = null,
-        private ?string $approvalCode = null,
-        private ?string $ip = null,
-        private ?BindingInfoResponseDto $bindingInfo = null,
+        private readonly string $orderNumber,
+        private readonly int $amount,
+        private readonly ?int $orderStatus = null,
+        private readonly ?string $pan = null,
+        private readonly ?int $expiration = null,
+        private readonly ?string $cardholderName = null,
+        private readonly ?int $currency = null,
+        private readonly ?string $approvalCode = null,
+        private readonly ?string $ip = null,
+        private readonly ?BindingInfoResponseDto $bindingInfo = null,
         ?int $errorCode = null,
         ?string $errorMessage = null,
     ) {

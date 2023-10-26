@@ -7,10 +7,10 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 class CardAuthInfoResponseDto
 {
     public function __construct(
-        private ?int $pan = null,
-        private ?int $expiration = null,
-        private ?string $cardholderName = null,
-        private ?string $approvalCode = null,
+        private readonly ?int $pan = null,
+        private readonly ?int $expiration = null,
+        private readonly ?string $cardholderName = null,
+        private readonly ?string $approvalCode = null,
     ) {
     }
 

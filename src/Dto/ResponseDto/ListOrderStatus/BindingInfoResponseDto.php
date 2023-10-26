@@ -7,8 +7,8 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 class BindingInfoResponseDto
 {
     public function __construct(
-        private ?string $clientId = null,
-        private ?string $bindingId = null,
+        private readonly ?string $clientId = null,
+        private readonly ?string $bindingId = null,
     ) {
     }
 

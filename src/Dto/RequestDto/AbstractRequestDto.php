@@ -9,7 +9,7 @@ use Sun\EpayAlfa\Enum\LanguageEnum;
 abstract class AbstractRequestDto implements RequestDtoInterface
 {
     public function __construct(
-        private ?string $language = null,
+        private readonly ?string $language = null,
     ) {
         LanguageEnum::checkAllowedValue($language, true);
     }

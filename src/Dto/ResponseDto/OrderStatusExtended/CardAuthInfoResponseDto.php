@@ -7,15 +7,15 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 class CardAuthInfoResponseDto
 {
     public function __construct(
-        private string $paymentSystem,
-        private string $product,
-        private string $paymentWay,
-        private ?int $maskedPan = null,
-        private ?int $expiration = null,
-        private ?string $cardholderName = null,
-        private ?string $approvalCode = null,
-        private ?bool $chargeback = null,
-        private ?SecureAuthInfoResponseDto $secureAuthInfo = null,
+        private readonly string $paymentSystem,
+        private readonly string $product,
+        private readonly string $paymentWay,
+        private readonly ?int $maskedPan = null,
+        private readonly ?int $expiration = null,
+        private readonly ?string $cardholderName = null,
+        private readonly ?string $approvalCode = null,
+        private readonly ?bool $chargeback = null,
+        private readonly ?SecureAuthInfoResponseDto $secureAuthInfo = null,
     ) {
     }
 

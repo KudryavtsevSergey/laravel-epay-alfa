@@ -17,10 +17,10 @@ class LastOrdersForMerchantsResponseDto extends AbstractErrorResponseDto
      * @param string|null $errorMessage
      */
     public function __construct(
-        private array $orderStatuses,
-        private int $totalCount,
-        private int $page,
-        private int $pageSize,
+        private readonly array $orderStatuses,
+        private readonly int $totalCount,
+        private readonly int $page,
+        private readonly int $pageSize,
         int $errorCode,
         ?string $errorMessage = null,
     ) {

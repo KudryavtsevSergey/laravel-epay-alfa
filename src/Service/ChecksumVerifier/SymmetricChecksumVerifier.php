@@ -9,7 +9,7 @@ use Sun\EpayAlfa\Exceptions\Request\WrongEpayAlfaChecksumException;
 class SymmetricChecksumVerifier implements ChecksumVerifierInterface
 {
     public function __construct(
-        private ?string $secret,
+        private readonly ?string $secret,
     ) {
     }
 

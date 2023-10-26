@@ -16,7 +16,7 @@ class EpayAlfa
     public static bool $registersRoutes = true;
 
     public function __construct(
-        private EpayAlfaConfig $config,
+        private readonly EpayAlfaConfig $config,
     ) {
     }
 

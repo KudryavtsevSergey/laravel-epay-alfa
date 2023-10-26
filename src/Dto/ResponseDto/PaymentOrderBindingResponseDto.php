@@ -9,13 +9,13 @@ class PaymentOrderBindingResponseDto extends AbstractErrorResponseDto
     public function __construct(
         int $errorCode,
         ?string $errorMessage = null,
-        private ?string $redirect = null,
-        private ?string $info = null,
-        private ?string $error = null,
-        private ?string $processingErrorType = null,
-        private ?string $acsUrl = null,
-        private ?string $paReq = null,
-        private ?string $termUrl = null,
+        private readonly ?string $redirect = null,
+        private readonly ?string $info = null,
+        private readonly ?string $error = null,
+        private readonly ?string $processingErrorType = null,
+        private readonly ?string $acsUrl = null,
+        private readonly ?string $paReq = null,
+        private readonly ?string $termUrl = null,
     ) {
         parent::__construct($errorCode, $errorMessage);
     }

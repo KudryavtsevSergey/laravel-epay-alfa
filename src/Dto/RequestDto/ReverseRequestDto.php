@@ -9,7 +9,7 @@ class ReverseRequestDto extends AbstractOrderRequestDto
     public function __construct(
         ?string $orderNumber,
         ?string $orderId = null,
-        private ?string $amount = null,
+        private readonly ?string $amount = null,
         ?string $language = null,
     ) {
         parent::__construct($orderNumber, $orderId, $language);

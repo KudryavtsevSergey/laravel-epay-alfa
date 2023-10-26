@@ -7,8 +7,8 @@ namespace Sun\EpayAlfa\Dto\ResponseDto;
 class RegisterResponseDto extends AbstractErrorResponseDto
 {
     public function __construct(
-        private ?string $orderId = null,
-        private ?string $formUrl = null,
+        private readonly ?string $orderId = null,
+        private readonly ?string $formUrl = null,
         ?int $errorCode = null,
         ?string $errorMessage = null,
     ) {

@@ -7,11 +7,11 @@ namespace Sun\EpayAlfa\Dto\RequestDto;
 class PaymentOrderBindingRequestDto extends AbstractRequestDto
 {
     public function __construct(
-        private string $mdOrder,
-        private string $bindingId,
-        private string $ip,
-        private ?string $cvc = null,
-        private ?string $email = null,
+        private readonly string $mdOrder,
+        private readonly string $bindingId,
+        private readonly string $ip,
+        private readonly ?string $cvc = null,
+        private readonly ?string $email = null,
         ?string $language = null,
     ) {
         parent::__construct($language);

@@ -9,16 +9,16 @@ use Sun\EpayAlfa\Enum\EpayAlfaCurrencyEnum;
 class RegisterRequestDto extends AbstractRequestDto
 {
     public function __construct(
-        private string $orderNumber,
-        private int $amount,
-        private int $currency,
-        private string $returnUrl,
-        private ?string $failUrl = null,
-        private ?string $description = null,
-        private ?string $pageView = null,
-        private ?string $clientId = null,
-        private ?string $merchantLogin = null,
-        private array $jsonParams = [],
+        private readonly string $orderNumber,
+        private readonly int $amount,
+        private readonly int $currency,
+        private readonly string $returnUrl,
+        private readonly ?string $failUrl = null,
+        private readonly ?string $description = null,
+        private readonly ?string $pageView = null,
+        private readonly ?string $clientId = null,
+        private readonly ?string $merchantLogin = null,
+        private readonly array $jsonParams = [],
         ?string $language = null,
     ) {
         parent::__construct($language);

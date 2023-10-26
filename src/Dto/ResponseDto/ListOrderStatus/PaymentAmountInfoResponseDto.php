@@ -7,10 +7,10 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\ListOrderStatus;
 class PaymentAmountInfoResponseDto
 {
     public function __construct(
-        private ?int $paymentState = null,
-        private ?int $approvedAmount = null,
-        private ?int $depositedAmount = null,
-        private ?int $refundedAmount = null,
+        private readonly ?int $paymentState = null,
+        private readonly ?int $approvedAmount = null,
+        private readonly ?int $depositedAmount = null,
+        private readonly ?int $refundedAmount = null,
     ) {
     }
 

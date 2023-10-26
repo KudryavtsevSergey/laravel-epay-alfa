@@ -12,7 +12,7 @@ use Sun\EpayAlfa\Exceptions\Internal\ProviderNotFoundException;
 class EpayAlfaConfig
 {
     public function __construct(
-        private Repository $config,
+        private readonly Repository $config,
     ) {
     }
 

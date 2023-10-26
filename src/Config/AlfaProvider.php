@@ -11,13 +11,13 @@ use Sun\EpayAlfa\EpayAlfa;
 class AlfaProvider
 {
     public function __construct(
-        private string $provider,
-        private string $username,
-        private string $password,
-        private string $gateway,
-        private string $checkType,
-        private ?string $secret,
-        private ?string $publicKey,
+        private readonly string $provider,
+        private readonly string $username,
+        private readonly string $password,
+        private readonly string $gateway,
+        private readonly string $checkType,
+        private readonly ?string $secret,
+        private readonly ?string $publicKey,
     ) {
         AlfaProviderEnum::checkAllowedValue($provider);
     }

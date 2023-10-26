@@ -7,8 +7,8 @@ namespace Sun\EpayAlfa\Dto\RequestDto;
 class DepositRequestDto extends AbstractRequestDto
 {
     public function __construct(
-        private string $orderId,
-        private int $amount,
+        private readonly string $orderId,
+        private readonly int $amount,
         ?string $language = null,
     ) {
         parent::__construct($language);

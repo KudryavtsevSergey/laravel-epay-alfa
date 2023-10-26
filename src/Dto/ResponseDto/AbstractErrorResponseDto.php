@@ -7,8 +7,8 @@ namespace Sun\EpayAlfa\Dto\ResponseDto;
 abstract class AbstractErrorResponseDto implements ResponseDtoInterface
 {
     public function __construct(
-        private ?int $errorCode = null,
-        private ?string $errorMessage = null,
+        private readonly ?int $errorCode = null,
+        private readonly ?string $errorMessage = null,
     ) {
     }
 

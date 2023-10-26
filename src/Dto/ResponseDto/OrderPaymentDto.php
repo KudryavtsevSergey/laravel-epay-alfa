@@ -11,12 +11,12 @@ use Sun\EpayAlfa\Service\ChecksumVerifier\ChecksumInterface;
 class OrderPaymentDto implements ResponseDtoInterface, ChecksumInterface
 {
     public function __construct(
-        private int $amount,
-        private string $mdOrder,
-        private string $orderNumber,
-        private ?string $checksum,
-        private string $operation,
-        private int $status,
+        private readonly int $amount,
+        private readonly string $mdOrder,
+        private readonly string $orderNumber,
+        private readonly ?string $checksum,
+        private readonly string $operation,
+        private readonly int $status,
     ) {
         OperationEnum::checkAllowedValue($operation);
         OperationStatusEnum::checkAllowedValue($status);

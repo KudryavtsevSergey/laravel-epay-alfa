@@ -7,9 +7,9 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 class SecureAuthInfoResponseDto
 {
     public function __construct(
-        private ?int $eci = null,
-        private ?string $cavv = null,
-        private ?string $xid = null,
+        private readonly ?int $eci = null,
+        private readonly ?string $cavv = null,
+        private readonly ?string $xid = null,
     ) {
     }
 

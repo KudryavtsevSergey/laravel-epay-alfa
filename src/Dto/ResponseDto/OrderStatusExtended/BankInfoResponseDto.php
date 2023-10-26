@@ -7,9 +7,9 @@ namespace Sun\EpayAlfa\Dto\ResponseDto\OrderStatusExtended;
 class BankInfoResponseDto
 {
     public function __construct(
-        private ?string $bankName = null,
-        private ?string $bankCountryCode = null,
-        private ?string $bankCountryName = null,
+        private readonly ?string $bankName = null,
+        private readonly ?string $bankCountryCode = null,
+        private readonly ?string $bankCountryName = null,
     ) {
     }
 

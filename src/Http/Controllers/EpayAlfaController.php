@@ -22,10 +22,10 @@ use Throwable;
 class EpayAlfaController extends Controller
 {
     public function __construct(
-        private ArrayObjectMapper $arrayObjectMapper,
-        private Dispatcher $dispatcher,
-        private EpayAlfaConfig $config,
-        private ChecksumVerifierFactory $checksumVerifierFactory,
+        private readonly ArrayObjectMapper $arrayObjectMapper,
+        private readonly Dispatcher $dispatcher,
+        private readonly EpayAlfaConfig $config,
+        private readonly ChecksumVerifierFactory $checksumVerifierFactory,
     ) {
     }
 
